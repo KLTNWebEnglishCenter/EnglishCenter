@@ -1,6 +1,7 @@
 package Web.EnglishCenter.entity;
 
 
+import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entity.user.Users;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -37,8 +38,8 @@ public class Notification {
 
     @JsonManagedReference
     @ManyToOne
-    @JoinColumn(name = "creator_id")
-    private Users creator;
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
 
     @JsonBackReference
     @ManyToMany
@@ -48,10 +49,10 @@ public class Notification {
             inverseJoinColumns = @JoinColumn(name = "classroom_id"))
     private List<Classroom> classrooms;
 
-    public Notification(@NonNull String title, @NonNull String content, Users creator) {
+    public Notification(@NonNull String title, @NonNull String content, Teacher teacher) {
         this.title = title;
         this.content = content;
         this.createDate = LocalDate.now();
-        this.creator = creator;
+        this.teacher = teacher;
     }
 }

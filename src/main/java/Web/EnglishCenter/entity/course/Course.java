@@ -14,6 +14,7 @@ import java.util.Objects;
 @Entity(name = "Course")
 @Getter
 @Setter
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Course {
@@ -68,34 +69,5 @@ public class Course {
         this.createDate=LocalDate.now();
         this.enable=true;
     }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Course course = (Course) o;
-        return id == course.id;
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Course{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
-                ", createDate=" + createDate +
-                ", modifiedDate=" + modifiedDate +
-                ", discount=" + discount +
-                ", enable=" + enable +
-                ", level=" + level +
-                ", category=" + category +
-                ", userRequestCourses=" + userRequestCourses +
-                ", classrooms=" + classrooms +
-                '}';
-    }
 }

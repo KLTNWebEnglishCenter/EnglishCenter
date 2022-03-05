@@ -14,8 +14,8 @@ import java.util.Objects;
 @AllArgsConstructor
 public class UsersCourseRequestKey implements Serializable {
 
-    @Column(name = "users_id")
-    private int usersId;
+    @Column(name = "student_id")
+    private int studentId;
 
     @Column(name = "course_id")
     private int courseId;
@@ -25,11 +25,11 @@ public class UsersCourseRequestKey implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UsersCourseRequestKey that = (UsersCourseRequestKey) o;
-        return usersId == that.usersId && courseId == that.courseId;
+        return studentId == that.studentId && courseId == that.courseId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(usersId, courseId);
+        return Objects.hash(studentId, courseId);
     }
 }

@@ -1,5 +1,6 @@
 package Web.EnglishCenter.entity;
 
+import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entity.user.Users;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
@@ -31,8 +32,8 @@ public class Document {
 
     @JsonManagedReference
     @ManyToOne
-    @JoinColumn(name = "creator_id")
-    private Users creator;
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
 
     public Document(@NonNull String name, String link) {
         this.name = name;

@@ -1,6 +1,7 @@
 package Web.EnglishCenter.entity;
 
 import Web.EnglishCenter.entity.course.Course;
+import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entity.user.Users;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -54,8 +55,8 @@ public class Classroom {
     @JoinTable(
             name = "Users_Classroom",
             joinColumns = @JoinColumn(name = "classroom_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<Users> users;
+            inverseJoinColumns = @JoinColumn(name = "student_id"))
+    private List<Student> students;
 
     @JsonManagedReference
     @ManyToMany

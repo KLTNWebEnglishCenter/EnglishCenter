@@ -1,5 +1,6 @@
 package Web.EnglishCenter.entity.exam;
 
+import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entity.user.Users;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -30,8 +31,8 @@ public class Exam {
 
     @JsonManagedReference
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "creator_id")
-    private Users creator;
+    @JoinColumn(name = "teacher_id")
+    private Teacher teacher;
 
     @JsonManagedReference
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, targetEntity = Question.class)
@@ -49,11 +50,18 @@ public class Exam {
 //        return questions.add(question);
 //    }
 
-    public Exam(String name, String description, String status, Users creator, List<Question> questions) {
+    public Exam(String name, String description, String status, Teacher teacher) {
         this.name = name;
         this.description = description;
         this.status = status;
-        this.creator = creator;
+        this.teacher = teacher;
+    }
+
+    public Exam(String name, String description, String status, Teacher teacher, List<Question> questions) {
+        this.name = name;
+        this.description = description;
+        this.status = status;
+        this.teacher = teacher;
         this.questions = questions;
     }
 }

@@ -26,16 +26,16 @@ import java.util.List;
 public class Student extends Users implements Serializable {
 
     @JsonBackReference
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "student")
     private List<UsersCourseRequest> userRequestCourses;
 
     @JsonBackReference
-    @ManyToMany(mappedBy = "users",fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "students",fetch = FetchType.LAZY)
     private List<Classroom> classrooms;
 
 
     @JsonBackReference
-    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "student",fetch = FetchType.LAZY)
     private List<UsersExamScores> usersExamScores;
 
     public Student(@NonNull String username, @NonNull String password, @NonNull String fullName, @NonNull String email) {

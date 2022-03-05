@@ -1,5 +1,6 @@
 package Web.EnglishCenter.entity.exam;
 
+import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Users;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
@@ -19,9 +20,9 @@ public class UsersExamScores {
 
     @JsonManagedReference
     @ManyToOne
-    @MapsId("usersId")
-    @JoinColumn(name = "users_id")
-    private Users users;
+    @MapsId("studentId")
+    @JoinColumn(name = "student_id")
+    private Student student;
 
     @JsonManagedReference
     @ManyToOne

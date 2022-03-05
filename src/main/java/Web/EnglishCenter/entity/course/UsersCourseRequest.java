@@ -1,5 +1,6 @@
 package Web.EnglishCenter.entity.course;
 
+import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Users;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
@@ -19,9 +20,9 @@ public class UsersCourseRequest {
 
     @JsonManagedReference
     @ManyToOne()
-    @MapsId("usersId")
-    @JoinColumn(name = "users_id")
-    private Users users;
+    @MapsId("studentId")
+    @JoinColumn(name = "student_id")
+    private Student student;
 
     @JsonManagedReference
     @ManyToOne()
@@ -32,9 +33,9 @@ public class UsersCourseRequest {
     @Column(columnDefinition = "nvarchar(255)")
     private String status;
 
-    public UsersCourseRequest(UsersCourseRequestKey userRequestCourseKey, Users users, Course course) {
+    public UsersCourseRequest(UsersCourseRequestKey userRequestCourseKey, Student student, Course course) {
         this.userRequestCourseKey = userRequestCourseKey;
-        this.users = users;
+        this.student = student;
         this.course = course;
         this.status="requesting";
     }

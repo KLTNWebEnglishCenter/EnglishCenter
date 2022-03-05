@@ -56,15 +56,15 @@ public class ExamRestAPI {
 //
 //        return ResponseEntity.ok().body(examService.save(exam));
 //    }
-    @GetMapping("/exam/save")
-    public void testSave(){
-        Exam exam=examService.findById(7);
-        Users users=usersService.findById(6);
-
-        UsersExamScoresKey usersExamScoresKey=new UsersExamScoresKey(6,7);
-        UsersExamScores usersExamScores=new UsersExamScores(usersExamScoresKey,users,exam,80);
-
-        usersExamScoresService.save(usersExamScores);
-
-    }
+//    @GetMapping("/exam/save")
+//    public void testSave(){
+//        Exam exam=examService.findById(7);
+//        Users users=usersService.findById(6);
+//
+//        UsersExamScoresKey usersExamScoresKey=new UsersExamScoresKey(6,7);
+//        UsersExamScores usersExamScores=new UsersExamScores(usersExamScoresKey,users,exam,80);
+//
+//        usersExamScoresService.save(usersExamScores);
+//
+//    }
 }

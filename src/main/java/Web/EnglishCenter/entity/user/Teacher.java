@@ -30,15 +30,15 @@ public class Teacher extends Users implements Serializable {
     private List<Classroom> classrooms;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "creator",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "teacher",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Document> documents;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "creator",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "teacher",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Notification> notifications;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "creator",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "teacher",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Exam> exams;
 
 

@@ -16,8 +16,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
-@MappedSuperclass
-//@Entity(name = "Users")
+//@MappedSuperclass
+@Entity(name = "Users")
 @Setter
 @Getter
 @EqualsAndHashCode

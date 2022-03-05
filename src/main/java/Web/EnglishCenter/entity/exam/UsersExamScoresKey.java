@@ -15,8 +15,8 @@ import java.util.Objects;
 public class UsersExamScoresKey implements Serializable {
 
 
-    @Column(name = "users_id")
-    private int usersId;
+    @Column(name = "student_id")
+    private int studentId;
 
     @Column(name = "exam_id")
     private int examId;
@@ -26,11 +26,11 @@ public class UsersExamScoresKey implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UsersExamScoresKey that = (UsersExamScoresKey) o;
-        return usersId == that.usersId && examId == that.examId;
+        return studentId == that.studentId && examId == that.examId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(usersId, examId);
+        return Objects.hash(studentId, examId);
     }
 }

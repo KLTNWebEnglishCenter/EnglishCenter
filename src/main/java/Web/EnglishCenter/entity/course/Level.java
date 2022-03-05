@@ -12,6 +12,7 @@ import java.util.Objects;
 @Entity(name = "Level")
 @Getter
 @Setter
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class Level implements Serializable {
@@ -27,29 +28,9 @@ public class Level implements Serializable {
     @OneToMany(mappedBy = "level",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Course> courses;
 
-    public Level(@NonNull String name) {
+    public Level( String name) {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Level level = (Level) o;
-        return id == level.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    @Override
-    public String toString() {
-        return "Level{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
-    }
 
 }
