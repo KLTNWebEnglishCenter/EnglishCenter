@@ -36,12 +36,12 @@ public class Notification {
     @Column(name = "modified_date")
     private LocalDate modifiedDate;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @JsonBackReference
+    @JsonManagedReference
     @ManyToMany
     @JoinTable(
             name = "Classroom_Notification",

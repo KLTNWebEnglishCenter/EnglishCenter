@@ -7,10 +7,7 @@ import Web.EnglishCenter.service.UsersService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,11 +32,17 @@ public class UsersRestAPI {
         return ResponseEntity.ok().body(usersService.findById(userid));
     }
 
-//    @GetMapping("/user/save")
-//    public ResponseEntity<Users> testSave(){
-//        Users users=new Users("khanh123","123456","voquockhanh","khanh123@mail.com");
-//        Authentication authentication= authenticationService.findById(1);
-//        users.setAuthentication(authentication);
-//        return ResponseEntity.ok().body(usersService.save(users));
-//    }
+    @PostMapping("/register")
+    public ResponseEntity<Users> save(@RequestBody Users users){
+        Authentication authentication= authenticationService.findById(1);
+        users.setAuthentication(authentication);
+        return ResponseEntity.ok().body(usersService.save(users));
+    }
+    @GetMapping("/user/save")
+    public ResponseEntity<Users> testSave(){
+        Users users=new Users("khanh123","123456","voquockhanh","khanh123@mail.com");
+        Authentication authentication= authenticationService.findById(1);
+        users.setAuthentication(authentication);
+        return ResponseEntity.ok().body(usersService.save(users));
+    }
 }

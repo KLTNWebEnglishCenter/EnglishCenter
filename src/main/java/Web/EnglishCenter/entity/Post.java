@@ -1,6 +1,7 @@
 package Web.EnglishCenter.entity;
 
 import Web.EnglishCenter.entity.user.Users;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -26,7 +27,7 @@ public class Post {
     @Column(columnDefinition = "nvarchar(255)")
     private String content;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "users_id")
     private Users users;

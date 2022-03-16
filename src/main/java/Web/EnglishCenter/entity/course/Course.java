@@ -45,21 +45,21 @@ public class Course {
 
     private boolean enable;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "level_id")
     private Level level;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "course",fetch = FetchType.LAZY)
     private List<UsersCourseRequest> userRequestCourses;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "course",fetch = FetchType.LAZY)
     private List<Classroom> classrooms;
 

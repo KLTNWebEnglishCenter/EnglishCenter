@@ -1,6 +1,7 @@
 package Web.EnglishCenter.entity.exam;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -28,7 +29,7 @@ public class Question {
     private String answerC;
     private String answerD;
 
-    @JsonBackReference
+    @JsonManagedReference
     @ManyToMany(mappedBy = "questions",targetEntity = Exam.class,fetch = FetchType.LAZY)
     private List<Exam> exams;
 

@@ -1,6 +1,7 @@
 package Web.EnglishCenter.entity.course;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,7 +22,7 @@ public class Category {
     @Column(columnDefinition = "nvarchar(255)")
     private String name;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "category",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Course> courses;
 

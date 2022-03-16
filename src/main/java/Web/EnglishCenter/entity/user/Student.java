@@ -8,6 +8,7 @@ import Web.EnglishCenter.entity.course.UsersCourseRequest;
 import Web.EnglishCenter.entity.exam.Exam;
 import Web.EnglishCenter.entity.exam.UsersExamScores;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -25,16 +26,16 @@ import java.util.List;
 @NoArgsConstructor
 public class Student extends Users implements Serializable {
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "student")
     private List<UsersCourseRequest> userRequestCourses;
 
-    @JsonBackReference
+    @JsonManagedReference
     @ManyToMany(mappedBy = "students",fetch = FetchType.LAZY)
     private List<Classroom> classrooms;
 
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "student",fetch = FetchType.LAZY)
     private List<UsersExamScores> usersExamScores;
 

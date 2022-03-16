@@ -1,6 +1,7 @@
 package Web.EnglishCenter.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,7 +27,7 @@ public class Schedule {
     @Column(columnDefinition = "nvarchar(255)")
     private String lesson;
 
-    @JsonBackReference
+    @JsonManagedReference
     @ManyToMany(mappedBy = "schedules",fetch = FetchType.LAZY)
     private List<Classroom> classrooms;
 

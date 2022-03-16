@@ -29,7 +29,7 @@ public class Exam {
     @Column(columnDefinition = "nvarchar(255)")
     private String status;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
@@ -42,7 +42,7 @@ public class Exam {
             inverseJoinColumns = @JoinColumn(name = "question_id"))
     private List<Question> questions;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "exam",fetch = FetchType.LAZY)
     private List<UsersExamScores> usersExamScores;
 

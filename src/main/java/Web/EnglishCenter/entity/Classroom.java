@@ -4,6 +4,7 @@ import Web.EnglishCenter.entity.course.Course;
 import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entity.user.Users;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -38,13 +39,13 @@ public class Classroom {
 
     private LocalDate modifiedDate;
 
-    @JsonManagedReference
+    @JsonBackReference
     @NonNull
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @JsonManagedReference
+    @JsonBackReference
     @NonNull
     @ManyToOne
     @JoinColumn(name = "course_id")

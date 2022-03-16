@@ -25,33 +25,34 @@ import java.util.Objects;
 @NoArgsConstructor
 public class Users {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-    @NonNull
-    @Column(unique = true)
-    private String username;
+	@NonNull
+	@Column(unique = true)
+	private String username;
 
-    @NonNull
-    private String password;
+	@NonNull
+	private String password;
 
-    @NonNull
-    @Column(columnDefinition = "nvarchar(255)")
-    private String fullName;
-    private LocalDate dob;
-    @Column(columnDefinition = "nvarchar(255)")
-    private String gender;
+	@NonNull
+	@Column(columnDefinition = "nvarchar(255)")
+	private String fullName;
+	private LocalDate dob;
+	@Column(columnDefinition = "nvarchar(255)")
+	private String gender;
 
-    @NonNull
-    private String email;
-    private String phoneNumber;
-    private boolean enable;
+	@NonNull
+	private String email;
+	private String phoneNumber;
+	private boolean enable;
 
-    @JsonManagedReference
-    @ManyToOne
-    @JoinColumn(name = "authentication_id", nullable = false)
-    private Authentication authentication;
+
+	@JsonBackReference
+	@ManyToOne
+	@JoinColumn(name = "authentication_id", nullable = false)
+	private Authentication authentication;
 
 //    @OneToMany(mappedBy = "users")
 //    private List<UsersCourseRequest> userRequestCourses;
@@ -65,9 +66,9 @@ public class Users {
 //    @OneToMany(mappedBy = "creator",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 //    private List<Notification> notifications;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "users", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private List<Post> posts;
+	@JsonManagedReference
+	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Post> posts;
 
 //    @OneToMany(mappedBy = "creator",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 //    private List<Exam> exams;
@@ -76,12 +77,10 @@ public class Users {
 //    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
 //    private List<UsersExamScores> usersExamScores;
 
-    public Users(@NonNull String username, @NonNull String password, @NonNull String fullName, @NonNull String email) {
-        this.username = username;
-        this.password = password;
-        this.fullName = fullName;
-        this.email = email;
-    }
-
-
+	public Users(@NonNull String username, @NonNull String password, @NonNull String fullName, @NonNull String email) {
+		this.username = username;
+		this.password = password;
+		this.fullName = fullName;
+		this.email = email;
+	}
 }

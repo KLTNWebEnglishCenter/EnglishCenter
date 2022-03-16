@@ -2,6 +2,7 @@ package Web.EnglishCenter.entity;
 
 import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entity.user.Users;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -30,7 +31,7 @@ public class Document {
     @Column(columnDefinition = "nvarchar(255)")
     private String link;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;

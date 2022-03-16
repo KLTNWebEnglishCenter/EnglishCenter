@@ -2,6 +2,7 @@ package Web.EnglishCenter.entity.exam;
 
 import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Users;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -18,13 +19,13 @@ public class UsersExamScores {
     @EmbeddedId
     private UsersExamScoresKey usersExamScoresKey;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne
     @MapsId("studentId")
     @JoinColumn(name = "student_id")
     private Student student;
 
-    @JsonManagedReference
+    @JsonBackReference
     @ManyToOne
     @MapsId("examId")
     @JoinColumn(name = "exam_id")

@@ -8,6 +8,7 @@ import Web.EnglishCenter.entity.course.UsersCourseRequest;
 import Web.EnglishCenter.entity.exam.Exam;
 import Web.EnglishCenter.entity.exam.UsersExamScores;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,19 +26,19 @@ public class Teacher extends Users implements Serializable {
     @Column(columnDefinition = "nvarchar(255)")
     private String certificate;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "teacher",fetch = FetchType.LAZY)
     private List<Classroom> classrooms;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "teacher",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Document> documents;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "teacher",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Notification> notifications;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "teacher",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Exam> exams;
 

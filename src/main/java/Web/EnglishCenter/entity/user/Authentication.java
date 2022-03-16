@@ -1,6 +1,7 @@
 package Web.EnglishCenter.entity.user;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,7 +26,7 @@ public class Authentication {
     @NonNull
     private boolean enable;
 
-    @JsonBackReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "authentication",fetch = FetchType.LAZY)
     private List<Users> users;
 
