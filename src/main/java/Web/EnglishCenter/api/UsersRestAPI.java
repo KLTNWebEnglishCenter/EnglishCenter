@@ -38,11 +38,11 @@ public class UsersRestAPI {
         users.setAuthentication(authentication);
         return ResponseEntity.ok().body(usersService.save(users));
     }
-    @GetMapping("/user/save")
-    public ResponseEntity<Users> testSave(){
-        Users users=new Users("khanh123","123456","voquockhanh","khanh123@mail.com");
-        Authentication authentication= authenticationService.findById(1);
-        users.setAuthentication(authentication);
-        return ResponseEntity.ok().body(usersService.save(users));
-    }
+//    @GetMapping("/user/save")
+//    public ResponseEntity<Users> testSave(){
+//        Users users=new Users("khanh123","123456","voquockhanh","khanh123@mail.com");
+//        Authentication authentication= authenticationService.findById(1);
+//        users.setAuthentication(authentication);
+//        return ResponseEntity.ok().body(usersService.save(users));
+//    }
 }
