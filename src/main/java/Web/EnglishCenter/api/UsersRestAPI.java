@@ -1,6 +1,7 @@
 package Web.EnglishCenter.api;
 
 import Web.EnglishCenter.entity.user.Authentication;
+import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Users;
 import Web.EnglishCenter.service.AuthenticationService;
 import Web.EnglishCenter.service.UsersService;
@@ -35,8 +36,13 @@ public class UsersRestAPI {
     @PostMapping("/register")
     public ResponseEntity<Users> save(@RequestBody Users users){
         Authentication authentication= authenticationService.findById(1);
-        users.setAuthentication(authentication);
-        return ResponseEntity.ok().body(usersService.save(users));
+        Student student = new Student();
+        student.setUsername(users.getUsername());
+        student.setPassword(users.getPassword());
+        student.setEmail(users.getEmail());
+        student.setFullName(users.getFullName());
+        student.setAuthentication(authentication);
+        return ResponseEntity.ok().body(usersService.save(student));
     }
     @GetMapping("/user/save")
     public ResponseEntity<Users> testSave(){
