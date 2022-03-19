@@ -57,10 +57,10 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(",")))
                 .sign(algorithm);
         log.info("access token exp time: {}", new Date(System.currentTimeMillis() + (10 * 60 * 1000)));
-//        response.setHeader("access_token", access_token);
-        Map<String, String> tokens = new HashMap<>();
-        tokens.put("access_token", access_token);
+        response.setHeader("access_token", access_token);
+//        Map<String, String> tokens = new HashMap<>();
+//        tokens.put("access_token", access_token);
         response.setContentType(APPLICATION_JSON_VALUE);
-        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+//        new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
 }
