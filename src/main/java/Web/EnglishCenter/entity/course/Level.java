@@ -24,7 +24,7 @@ public class Level implements Serializable {
     @Column(columnDefinition = "nvarchar(255)")
     private String name;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "course_level")
     @OneToMany(mappedBy = "level",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Course> courses;
 

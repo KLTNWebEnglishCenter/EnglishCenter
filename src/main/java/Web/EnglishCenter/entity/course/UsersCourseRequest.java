@@ -19,13 +19,13 @@ public class UsersCourseRequest {
     @EmbeddedId
     private UsersCourseRequestKey userRequestCourseKey;
 
-    @JsonBackReference
+    @JsonBackReference(value = "student_userRequestCourses")
     @ManyToOne()
     @MapsId("studentId")
     @JoinColumn(name = "student_id")
     private Student student;
 
-    @JsonBackReference
+    @JsonBackReference(value = "course_userRequestCourses")
     @ManyToOne()
     @MapsId("courseId")
     @JoinColumn(name = "course_id")

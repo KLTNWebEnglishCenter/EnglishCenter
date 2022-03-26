@@ -19,13 +19,13 @@ public class UsersExamScores {
     @EmbeddedId
     private UsersExamScoresKey usersExamScoresKey;
 
-    @JsonBackReference
+    @JsonBackReference(value = "student_usersExamScores")
     @ManyToOne
     @MapsId("studentId")
     @JoinColumn(name = "student_id")
     private Student student;
 
-    @JsonBackReference
+    @JsonBackReference(value = "exams_usersExamScores")
     @ManyToOne
     @MapsId("examId")
     @JoinColumn(name = "exam_id")

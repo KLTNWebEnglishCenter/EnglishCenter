@@ -5,7 +5,9 @@ import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entity.user.Users;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,6 +20,8 @@ import java.util.List;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property  = "id")
 public class Classroom {
 
     @Id
@@ -39,19 +43,19 @@ public class Classroom {
 
     private LocalDate modifiedDate;
 
-    @JsonBackReference
+    @JsonBackReference(value = "teacher_classrooms")
     @NonNull
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @JsonBackReference
+    @JsonBackReference(value = "classrooms_course")
     @NonNull
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @JsonManagedReference
+//    @JsonManagedReference(value = "classrooms_students")
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "Users_Classroom",
@@ -59,7 +63,7 @@ public class Classroom {
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     private List<Student> students;
 
-    @JsonManagedReference
+//    @JsonManagedReference(value = "classrooms_schedules")
     @ManyToMany
     @JoinTable(
             name = "Classroom_Schedule",
@@ -67,7 +71,7 @@ public class Classroom {
             inverseJoinColumns = @JoinColumn(name = "schedule_id"))
     private List<Schedule> schedules;
 
-    @JsonManagedReference
+//    @JsonManagedReference(value = "classrooms_notifications")
     @ManyToMany(mappedBy = "classrooms", fetch = FetchType.LAZY)
     private List<Notification> notifications;
 

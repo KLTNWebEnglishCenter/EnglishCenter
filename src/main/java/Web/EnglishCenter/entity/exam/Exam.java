@@ -29,20 +29,21 @@ public class Exam {
     @Column(columnDefinition = "nvarchar(255)")
     private String status;
 
-    @JsonBackReference
+    @JsonBackReference(value = "teacher_exams")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @JsonManagedReference
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, targetEntity = Question.class)
+//    @JsonManagedReference(value = "exams_questions")
+//    @JsonManagedReference
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, targetEntity = Question.class)
     @JoinTable(
             name = "Exam_Question",
             joinColumns = @JoinColumn(name = "exam_id"),
             inverseJoinColumns = @JoinColumn(name = "question_id"))
     private List<Question> questions;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "exams_usersExamScores")
     @OneToMany(mappedBy = "exam",fetch = FetchType.LAZY)
     private List<UsersExamScores> usersExamScores;
 

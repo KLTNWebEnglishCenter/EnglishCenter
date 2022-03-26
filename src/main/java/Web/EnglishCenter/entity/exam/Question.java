@@ -1,7 +1,9 @@
 package Web.EnglishCenter.entity.exam;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,6 +15,8 @@ import java.util.List;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property  = "id")
 public class Question {
 
     @Id
@@ -29,7 +33,9 @@ public class Question {
     private String answerC;
     private String answerD;
 
-    @JsonManagedReference
+//    @JsonBackReference(value = "exams_questions")
+//    @JsonManagedReference
+//    @JsonBackReference
     @ManyToMany(mappedBy = "questions",targetEntity = Exam.class,fetch = FetchType.LAZY)
     private List<Exam> exams;
 

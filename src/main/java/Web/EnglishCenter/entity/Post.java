@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity(name = "Post")
 @Getter
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post {
+public class Post implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,8 @@ public class Post {
     @Column(columnDefinition = "nvarchar(255)")
     private String content;
 
-    @JsonBackReference
+    @JsonBackReference(value = "users_posts")
+//    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "users_id")
     private Users users;

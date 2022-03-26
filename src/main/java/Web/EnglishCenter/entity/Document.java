@@ -31,7 +31,7 @@ public class Document {
     @Column(columnDefinition = "nvarchar(255)")
     private String link;
 
-    @JsonBackReference
+    @JsonBackReference(value = "teacher_documents")
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;

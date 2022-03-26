@@ -8,10 +8,13 @@ import Web.EnglishCenter.entity.course.UsersCourseRequest;
 import Web.EnglishCenter.entity.exam.Exam;
 import Web.EnglishCenter.entity.exam.UsersExamScores;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
@@ -23,7 +26,8 @@ import java.util.Objects;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-public class Users {
+//@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+public class Users implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,10 +50,12 @@ public class Users {
 	@NonNull
 	private String email;
 	private String phoneNumber;
+	@Column(columnDefinition = "true")
 	private boolean enable;
 
 
-	@JsonBackReference
+		@JsonBackReference(value = "users_authentication")
+//	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "authentication_id", nullable = false)
 	private Authentication authentication;
@@ -66,7 +72,8 @@ public class Users {
 //    @OneToMany(mappedBy = "creator",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 //    private List<Notification> notifications;
 
-	@JsonManagedReference
+	@JsonManagedReference(value = "users_posts")
+//	@JsonManagedReference
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Post> posts;
 
@@ -82,5 +89,6 @@ public class Users {
 		this.password = password;
 		this.fullName = fullName;
 		this.email = email;
+		this.enable=true;
 	}
 }

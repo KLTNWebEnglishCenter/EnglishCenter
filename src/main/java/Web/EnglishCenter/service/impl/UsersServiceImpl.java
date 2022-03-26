@@ -1,6 +1,7 @@
 package Web.EnglishCenter.service.impl;
 
 import Web.EnglishCenter.entity.user.CustomUserDetails;
+import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entity.user.Users;
 import Web.EnglishCenter.repo.UsersRepo;
 import Web.EnglishCenter.service.UsersService;
@@ -50,6 +51,16 @@ public class UsersServiceImpl implements UsersService,UserDetailsService {
     @Override
     public Users findByUsername(String username) {
         return usersRepo.findByUsername(username);
+    }
+
+    @Override
+    public List<Teacher> findAllTeacher() {
+        return usersRepo.findAllTeacher();
+    }
+
+    @Override
+    public Teacher findTeacher(int teacherid) {
+        return usersRepo.findTeacher(teacherid);
     }
 
 

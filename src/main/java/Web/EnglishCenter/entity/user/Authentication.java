@@ -26,8 +26,9 @@ public class Authentication {
     @NonNull
     private boolean enable;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "authentication",fetch = FetchType.LAZY)
+        @JsonManagedReference(value = "users_authentication")
+//    @JsonManagedReference
+    @OneToMany(mappedBy = "authentication", fetch = FetchType.LAZY)
     private List<Users> users;
 
     public Authentication(@NonNull String role) {

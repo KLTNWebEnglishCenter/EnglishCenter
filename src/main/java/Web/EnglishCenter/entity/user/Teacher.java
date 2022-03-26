@@ -26,19 +26,19 @@ public class Teacher extends Users implements Serializable {
     @Column(columnDefinition = "nvarchar(255)")
     private String certificate;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "teacher_classrooms")
     @OneToMany(mappedBy = "teacher",fetch = FetchType.LAZY)
     private List<Classroom> classrooms;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "teacher_documents")
     @OneToMany(mappedBy = "teacher",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Document> documents;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "teacher_notifications")
     @OneToMany(mappedBy = "teacher",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Notification> notifications;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "teacher_exams")
     @OneToMany(mappedBy = "teacher",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Exam> exams;
 
@@ -47,6 +47,11 @@ public class Teacher extends Users implements Serializable {
         super(username, password, fullName, email);
         this.certificate = certificate;
     }
+
+    public Teacher(@NonNull String username, @NonNull String password, @NonNull String fullName, @NonNull String email) {
+        super(username, password, fullName, email);
+    }
+
 
     public Teacher(String certificate) {
         this.certificate = certificate;
