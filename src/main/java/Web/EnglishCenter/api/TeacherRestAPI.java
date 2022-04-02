@@ -26,8 +26,10 @@ public class TeacherRestAPI {
         return ResponseEntity.ok().body(usersService.findAllTeacher());
     }
 
+//    @ResponseBody
     @GetMapping("/teacher/{teacherid}")
-    public ResponseEntity<Teacher> findTeacher(@PathVariable int teacherid){
+    public ResponseEntity<Teacher> findTeacher(@PathVariable(value = "teacherid") int teacherid){
+        log.info(teacherid+"");
         return ResponseEntity.ok().body(usersService.findTeacher(teacherid));
     }
 

@@ -84,7 +84,7 @@ public class Users implements Serializable {
 //    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
 //    private List<UsersExamScores> usersExamScores;
 
-	public Users(@NonNull String username, @NonNull String password, @NonNull String fullName, @NonNull String email) {
+	public Users( String username,  String password, String fullName,  String email) {
 		this.username = username;
 		this.password = password;
 		this.fullName = fullName;

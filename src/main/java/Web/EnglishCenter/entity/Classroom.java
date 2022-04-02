@@ -12,6 +12,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "Classroom")
@@ -28,10 +29,10 @@ public class Classroom {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NonNull
+//    @NonNull
     private LocalDate startDate;
 
-    @NonNull
+//    @NonNull
     private LocalDate endDate;
 
     @Column(columnDefinition = "nvarchar(255)")
@@ -44,13 +45,13 @@ public class Classroom {
     private LocalDate modifiedDate;
 
     @JsonBackReference(value = "teacher_classrooms")
-    @NonNull
+//    @NonNull
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
     @JsonBackReference(value = "classrooms_course")
-    @NonNull
+//    @NonNull
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
@@ -75,19 +76,24 @@ public class Classroom {
     @ManyToMany(mappedBy = "classrooms", fetch = FetchType.LAZY)
     private List<Notification> notifications;
 
-    public Classroom(@NonNull LocalDate startDate, @NonNull LocalDate endDate, @NonNull Teacher teacher, @NonNull Course course) {
+    public Classroom( LocalDate startDate,  LocalDate endDate, Teacher teacher,  Course course) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.createDate = LocalDate.now();
         this.teacher = teacher;
         this.course = course;
     }
-    public Classroom(@NonNull LocalDate startDate, @NonNull LocalDate endDate, @NonNull Teacher teacher, @NonNull Course course,List<Schedule> schedules) {
+    public Classroom(LocalDate startDate, LocalDate endDate,  Teacher teacher,  Course course,List<Schedule> schedules) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.createDate = LocalDate.now();
         this.teacher = teacher;
         this.course = course;
         this.schedules=schedules;
+    }
+
+    public void addSchedule(Schedule schedule){
+        if(schedules==null)schedules=new ArrayList<>();
+        else schedules.add(schedule);
     }
 }

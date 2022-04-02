@@ -32,13 +32,13 @@ public class CourseRestAPI {
         return ResponseEntity.ok().body(courseService.findAll());
     }
 
-//    @GetMapping("/course/save")
-//    public ResponseEntity<Course> testSave(){
-//        Course course=new Course("test1",1000000);
+    @GetMapping("/course/save")
+    public ResponseEntity<Course> testSave(){
+        Course course=new Course("test1",1000000);
 //        Level level=new Level("level3");
-////        Level level=levelService.findById(1);
+//        Level level=levelService.findById(1);
 //        course.setLevel(level);
-//        return ResponseEntity.ok().body(courseService.save(course));
-//    }
+        return ResponseEntity.ok().body(courseService.save(course));
+    }
 
 }

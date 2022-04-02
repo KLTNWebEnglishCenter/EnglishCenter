@@ -35,7 +35,7 @@ public class Schedule {
     @ManyToMany(mappedBy = "schedules",fetch = FetchType.LAZY)
     private List<Classroom> classrooms;
 
-    public Schedule(@NonNull String dayOfWeek, @NonNull String lesson) {
+    public Schedule( String dayOfWeek, String lesson) {
         this.dayOfWeek = dayOfWeek;
         this.lesson = lesson;
     }
