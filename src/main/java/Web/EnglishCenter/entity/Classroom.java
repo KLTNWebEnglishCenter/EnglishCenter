@@ -38,6 +38,9 @@ public class Classroom {
     @Column(columnDefinition = "nvarchar(255)")
     private String status;
 
+    @Column(columnDefinition = "nvarchar(255)")
+    private String classname;
+
     private int maxMember;
 
     private LocalDate createDate;
@@ -56,7 +59,7 @@ public class Classroom {
     @JoinColumn(name = "course_id")
     private Course course;
 
-//    @JsonManagedReference(value = "classrooms_students")
+    @JsonBackReference(value = "classrooms_students")
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "Users_Classroom",
@@ -64,7 +67,7 @@ public class Classroom {
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     private List<Student> students;
 
-//    @JsonManagedReference(value = "classrooms_schedules")
+    @JsonBackReference(value = "classrooms_schedules")
     @ManyToMany
     @JoinTable(
             name = "Classroom_Schedule",
@@ -72,7 +75,7 @@ public class Classroom {
             inverseJoinColumns = @JoinColumn(name = "schedule_id"))
     private List<Schedule> schedules;
 
-//    @JsonManagedReference(value = "classrooms_notifications")
+    @JsonBackReference(value = "classrooms_notifications")
     @ManyToMany(mappedBy = "classrooms", fetch = FetchType.LAZY)
     private List<Notification> notifications;
 
@@ -95,5 +98,24 @@ public class Classroom {
     public void addSchedule(Schedule schedule){
         if(schedules==null)schedules=new ArrayList<>();
         else schedules.add(schedule);
+    }
+
+    @Override
+    public String toString() {
+        return "Classroom{" +
+                "id=" + id +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", status='" + status + '\'' +
+                ", classname='" + classname + '\'' +
+                ", maxMember=" + maxMember +
+                ", createDate=" + createDate +
+                ", modifiedDate=" + modifiedDate +
+                ", teacher=" + teacher +
+                ", course=" + course +
+                ", students=" + students +
+                ", schedules=" + schedules +
+                ", notifications=" + notifications +
+                '}';
     }
 }

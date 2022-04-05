@@ -35,4 +35,10 @@ public class CourseServiceImpl implements CourseService {
     public Course findById(int id) {
         return courseRepo.findById(id).get();
     }
+
+    @Override
+    public Course findCourseByClassroom(int classroomId) {
+        return courseRepo.findCourseByClassroomId(classroomId);
+    }
+
 }

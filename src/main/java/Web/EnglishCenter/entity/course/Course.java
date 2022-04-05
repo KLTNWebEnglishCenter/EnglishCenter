@@ -59,7 +59,7 @@ public class Course {
     @OneToMany(mappedBy = "course",fetch = FetchType.LAZY)
     private List<UsersCourseRequest> userRequestCourses;
 
-    @JsonManagedReference(value = "classrooms_course")
+    @JsonBackReference(value = "classrooms_course")
     @OneToMany(mappedBy = "course",fetch = FetchType.LAZY)
     private List<Classroom> classrooms;
 

@@ -41,4 +41,9 @@ public class CourseRestAPI {
         return ResponseEntity.ok().body(courseService.save(course));
     }
 
+
+    @GetMapping("/course/{id}")
+    public ResponseEntity<Course> getCourse(@PathVariable int id){
+        return ResponseEntity.ok().body(courseService.findById(id));
+    }
 }

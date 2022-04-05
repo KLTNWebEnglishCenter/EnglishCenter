@@ -20,4 +20,7 @@ public interface UsersRepo extends JpaRepository<Users,Integer> {
 
     @Query(value = "select * from users where dtype='Teacher' and id=:teacherid",nativeQuery = true)
     Teacher findTeacher(int teacherid);
+
+    @Query(value = "select * from users where dtype = 'Teacher' and id = (select teacher_id from classroom where id =:classroomId)",nativeQuery = true)
+    Teacher findTeacherByClassroomId(@Param("classroomId") int classroomId);
 }

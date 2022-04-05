@@ -63,6 +63,11 @@ public class UsersServiceImpl implements UsersService,UserDetailsService {
         return usersRepo.findTeacher(teacherid);
     }
 
+    @Override
+    public Teacher findTeacherByClassroomId(int classroomId) {
+        return usersRepo.findTeacherByClassroomId(classroomId);
+    }
+
 
     public UserDetails loadUserById(int userId) {
         Users user= usersRepo.findById(userId).get();

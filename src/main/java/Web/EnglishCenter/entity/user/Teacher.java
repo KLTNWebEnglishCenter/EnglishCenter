@@ -26,7 +26,7 @@ public class Teacher extends Users implements Serializable {
     @Column(columnDefinition = "nvarchar(255)")
     private String certificate;
 
-    @JsonManagedReference(value = "teacher_classrooms")
+    @JsonBackReference(value = "teacher_classrooms")
     @OneToMany(mappedBy = "teacher",fetch = FetchType.LAZY)
     private List<Classroom> classrooms;
 

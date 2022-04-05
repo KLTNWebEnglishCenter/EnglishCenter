@@ -14,4 +14,5 @@ public interface UsersService {
     public Users findByUsername(String username);
     public List<Teacher> findAllTeacher();
     public Teacher findTeacher(int teacherid);
+    public Teacher findTeacherByClassroomId(int classroomId);
 }
