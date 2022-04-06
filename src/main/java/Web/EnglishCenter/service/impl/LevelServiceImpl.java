@@ -35,4 +35,9 @@ public class LevelServiceImpl implements LevelService {
     public Level findById(int id) {
         return levelRepo.findById(id).get();
     }
+
+    @Override
+    public Level findLevelByCourseId(int courseId) {
+        return levelRepo.findLevelByCourseId(courseId);
+    }
 }

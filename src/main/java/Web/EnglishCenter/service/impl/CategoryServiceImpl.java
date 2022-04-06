@@ -35,4 +35,9 @@ public class CategoryServiceImpl implements CategoryService {
     public Category findById(int id) {
         return categoryRepo.findById(id).get();
     }
+
+    @Override
+    public Category findCategoryByCourseId(int courseId) {
+        return categoryRepo.findCategoryByCourseId(courseId);
+    }
 }
