@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/api/login/**", "/level/**", "/course/**", "/teacher/**",
                 "/teachers/**", "/user/**", "/users/**", "/exam/**", "/register/**", "/auth/**", "/auths/**",
                 "/students/**","/student/**","/employees/**","/employee/**",
-                "/classrooms/**","/classroom/**","/schedules/**","/schedule/**").permitAll();
+                "/classrooms/**","/classroom/**","/schedules/**","/schedule/**","/category/**","/categories/**").permitAll();
 //        http.authorizeRequests().antMatchers(GET, "/user/**").hasAnyAuthority("ROLE_GIAOVIEN");
 //        http.authorizeRequests().antMatchers(POST, "/api/user/save/**").hasAnyAuthority("ROLE_ADMIN");
 

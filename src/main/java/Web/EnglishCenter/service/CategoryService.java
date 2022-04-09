@@ -9,4 +9,5 @@ public interface CategoryService {
     public void delete(Category category);
     public List<Category> findAll();
     public Category findById(int id);
+    public Category findCategoryByCourseId(int courseId);
 }

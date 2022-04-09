@@ -10,4 +10,5 @@ public interface LevelService {
     public void delete(Level level);
     public List<Level> findAll();
     public Level findById(int id);
+    public Level findLevelByCourseId(int courseId);
 }
