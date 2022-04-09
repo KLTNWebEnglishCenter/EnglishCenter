@@ -1,6 +1,7 @@
 package Web.EnglishCenter.filter;
 
 import Web.EnglishCenter.entity.user.CustomUserDetails;
+import Web.EnglishCenter.utils.JwtHelper;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,13 +50,15 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException, ServletException {
         CustomUserDetails user = (CustomUserDetails) authentication.getPrincipal();
-        Algorithm algorithm = Algorithm.HMAC256("khanhvo18058521".getBytes());
-        String access_token = JWT.create()
-                .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + (10 * 60 * 1000)))
-                .withIssuer(request.getRequestURL().toString())
-                .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(",")))
-                .sign(algorithm);
+        JwtHelper jwtHelper=new JwtHelper();
+//        Algorithm algorithm = Algorithm.HMAC256("khanhvo18058521".getBytes());
+//        String access_token = JWT.create()
+//                .withSubject(user.getUsername())
+//                .withExpiresAt(new Date(System.currentTimeMillis() + (10 * 60 * 1000)))
+//                .withIssuer(request.getRequestURL().toString())
+//                .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(",")))
+//                .sign(algorithm);
+        String access_token=jwtHelper.generateToken(user,request);
         log.info("access token exp time: {}", new Date(System.currentTimeMillis() + (10 * 60 * 1000)));
         response.setHeader("access_token", access_token);
 //        Map<String, String> tokens = new HashMap<>();

@@ -1,5 +1,6 @@
 package Web.EnglishCenter.filter;
 
+import Web.EnglishCenter.utils.JwtHelper;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -39,6 +40,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
             if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
                 try {
                     log.info("authorization != null");
+                    JwtHelper jwtHelper=new JwtHelper();
                     String token = authorizationHeader.substring("Bearer ".length());
                     Algorithm algorithm = Algorithm.HMAC256("khanhvo18058521".getBytes());
                     JWTVerifier verifier = JWT.require(algorithm).build();

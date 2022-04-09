@@ -1,8 +1,6 @@
 package Web.EnglishCenter.service.impl;
 
-import Web.EnglishCenter.entity.user.CustomUserDetails;
-import Web.EnglishCenter.entity.user.Teacher;
-import Web.EnglishCenter.entity.user.Users;
+import Web.EnglishCenter.entity.user.*;
 import Web.EnglishCenter.repo.UsersRepo;
 import Web.EnglishCenter.service.UsersService;
 import lombok.extern.slf4j.Slf4j;
@@ -68,7 +66,6 @@ public class UsersServiceImpl implements UsersService,UserDetailsService {
         return usersRepo.findTeacherByClassroomId(classroomId);
     }
 
-
     public UserDetails loadUserById(int userId) {
         Users user= usersRepo.findById(userId).get();
         return new CustomUserDetails(user);
@@ -88,4 +85,25 @@ public class UsersServiceImpl implements UsersService,UserDetailsService {
         }
         return new CustomUserDetails(users);
     }
+
+    @Override
+    public List<Student> findAllStudent() {
+        return usersRepo.findAllStudent();
+    }
+
+    @Override
+    public Student findStudent(int studentid) {
+        return usersRepo.findStudent(studentid);
+    }
+
+    @Override
+    public List<Employee> findAllEmployee() {
+        return usersRepo.findAllEmployee();
+    }
+
+    @Override
+    public Employee findEmployee(int employeeid) {
+        return usersRepo.findEmployee(employeeid);
+    }
+
 }
