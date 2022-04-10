@@ -5,11 +5,14 @@ import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Users;
 import Web.EnglishCenter.service.AuthenticationService;
 import Web.EnglishCenter.service.UsersService;
+import Web.EnglishCenter.utils.JwtHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -22,6 +25,7 @@ public class UsersRestAPI {
 
     @Autowired
     private AuthenticationService authenticationService;
+
 
     @GetMapping("/users")
     public ResponseEntity<List<Users>>  getAll(){
@@ -51,4 +55,15 @@ public class UsersRestAPI {
 //        users.setAuthentication(authentication);
 //        return ResponseEntity.ok().body(usersService.save(users));
 //    }
+
+    @PostMapping("/user/fromToken")
+    public ResponseEntity<Users> getUserFromToken(HttpServletRequest request){
+        JwtHelper jwtHelper = new JwtHelper();
+        String token = jwtHelper.getJwtFromRequest(request);
+//        log.info(token);
+        String username = jwtHelper.getUsernameFromJWT(token);
+//        log.info(username);
+        Users users = usersService.findByUsername(username);
+        return ResponseEntity.ok().body(users);
+    }
 }
