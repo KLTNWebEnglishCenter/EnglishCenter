@@ -19,7 +19,7 @@ public class Category {
     private int id;
 
     @NonNull
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(255)",nullable = false)
     private String name;
 
     @JsonManagedReference(value = "course_category")

@@ -24,11 +24,11 @@ public class Schedule {
     private int id;
 
     @NonNull
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(255)",nullable = false)
     private String dayOfWeek;
 
     @NonNull
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(255)",nullable = false)
     private String lesson;
 
 //    @JsonManagedReference(value = "classrooms_schedules")

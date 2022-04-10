@@ -15,6 +15,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Autowired
     private AuthenticationRepo authenticationRepo;
+//==========================================================Default===================================================================
 
     @Override
     public Authentication save(Authentication authentication){
@@ -34,5 +35,16 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public Authentication findById(int id){
         return authenticationRepo.findById(id).get();
+    }
+//==========================================================END===================================================================
+
+    /**
+     * to add role to the user before saving to db
+     * @param role
+     * @return
+     */
+    @Override
+    public Authentication findByRoleName(String role) {
+        return authenticationRepo.findByRoleName(role);
     }
 }

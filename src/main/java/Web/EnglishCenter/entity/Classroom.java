@@ -38,7 +38,7 @@ public class Classroom {
     @Column(columnDefinition = "nvarchar(255)")
     private String status;
 
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(255)",nullable = false)
     private String classname;
 
     private int maxMember;

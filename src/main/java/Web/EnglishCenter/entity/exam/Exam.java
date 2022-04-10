@@ -22,7 +22,7 @@ public class Exam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(255)",nullable = false)
     private String name;
     @Column(columnDefinition = "nvarchar(255)")
     private String description;

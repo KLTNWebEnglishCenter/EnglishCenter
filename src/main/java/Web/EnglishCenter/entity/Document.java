@@ -21,14 +21,14 @@ public class Document {
     private int id;
 
     @NonNull
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(255)", nullable = false)
     private String name;
 
     @Column(columnDefinition = "nvarchar(255)")
     private String description;
 
     @NonNull
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(255)",nullable = false)
     private String link;
 
     @JsonBackReference(value = "teacher_documents")

@@ -23,16 +23,17 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull
-    @NonNull
-    @Column(columnDefinition = "nvarchar(255)")
+//    @NotNull
+//    @NonNull
+    @Column(columnDefinition = "nvarchar(255)",nullable = false,unique = true)
     private String name;
 
     @Column(columnDefinition = "nvarchar(255)")
     private String description;
 
-    @NotNull
-    @NonNull
+//    @NotNull
+//    @NonNull
+    @Column(nullable = false)
     private double price;
 
     @Column(name = "create_date")
@@ -63,7 +64,7 @@ public class Course {
     @OneToMany(mappedBy = "course",fetch = FetchType.LAZY)
     private List<Classroom> classrooms;
 
-    public Course(@NonNull String name, @NonNull double price) {
+    public Course(String name, double price) {
         this.name = name;
         this.price = price;
         this.createDate=LocalDate.now();
