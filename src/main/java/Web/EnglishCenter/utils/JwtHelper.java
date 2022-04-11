@@ -16,6 +16,12 @@ import java.util.stream.Collectors;
 public class JwtHelper {
 
 
+    /**
+     * ex: Bearer abcdefghjkzz => abcdefghjkzz
+     * @author VQKHANH
+     * @param request
+     * @return jwt
+     */
     public String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         // Kiểm tra xem header Authorization có chứa thông tin jwt không
@@ -32,7 +38,13 @@ public class JwtHelper {
     // Thời gian có hiệu lực của chuỗi jwt
     private final long JWT_EXPIRATION = 604800000L;
 
-    // Tạo ra jwt từ thông tin user
+    /**
+     * Create jwt from user info (username and role)
+     * @author VQKHANH
+     * @param user
+     * @param request
+     * @return jwt
+     */
     public String generateToken(CustomUserDetails user,HttpServletRequest request) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + JWT_EXPIRATION);
@@ -46,11 +58,15 @@ public class JwtHelper {
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(",")))
                 .sign(algorithm);
 
-        // Tạo chuỗi json web token từ id của user.
         return access_token;
     }
 
-    // Lấy id user từ jwt
+    /**
+     * Get username from jwt
+     * @author VQKHANH
+     * @param token
+     * @return username
+     */
     public String getUsernameFromJWT(String token) {
         Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET.getBytes());
         JWTVerifier verifier = JWT.require(algorithm).build();

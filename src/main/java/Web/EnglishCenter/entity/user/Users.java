@@ -26,7 +26,7 @@ import java.util.Objects;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+//@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Users implements Serializable {
 
 	@Id
@@ -34,27 +34,30 @@ public class Users implements Serializable {
 	private int id;
 
 	@NonNull
-	@Column(unique = true)
+	@Column(columnDefinition = "varchar(255)", unique = true, nullable = false)
 	private String username;
 
 	@NonNull
+	@Column(columnDefinition = "varchar(255)", nullable = false)
 	private String password;
 
 	@NonNull
-	@Column(columnDefinition = "nvarchar(255)")
+	@Column(columnDefinition = "nvarchar(255)", nullable = false)
 	private String fullName;
 	private LocalDate dob;
 	@Column(columnDefinition = "nvarchar(255)")
 	private String gender;
 
 	@NonNull
+	@Column(columnDefinition = "varchar(255)",unique = true, nullable = false)
 	private String email;
+	@Column(columnDefinition = "nvarchar(10)",unique = true, nullable = false)
 	private String phoneNumber;
 	@Column(columnDefinition = "true")
 	private boolean enable;
 
 
-		@JsonBackReference(value = "users_authentication")
+	@JsonBackReference(value = "users_authentication")
 //	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "authentication_id", nullable = false)

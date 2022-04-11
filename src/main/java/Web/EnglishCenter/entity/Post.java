@@ -21,11 +21,11 @@ public class Post implements Serializable {
     private int id;
 
     @NonNull
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(255)",nullable = false)
     private String title;
 
     @NonNull
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(255)",nullable = false)
     private String content;
 
     @JsonBackReference(value = "users_posts")

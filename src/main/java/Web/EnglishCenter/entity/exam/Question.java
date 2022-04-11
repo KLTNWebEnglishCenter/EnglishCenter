@@ -27,8 +27,11 @@ public class Question {
     @Column(nullable = false)
     private String content;
 
+    @Column(nullable = false)
     private String correctAnswer;
+    @Column(nullable = false)
     private String answerA;
+    @Column(nullable = false)
     private String answerB;
     private String answerC;
     private String answerD;

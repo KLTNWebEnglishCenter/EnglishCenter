@@ -28,11 +28,11 @@ public class Notification {
     private int id;
 
     @NonNull
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(255)",nullable = false)
     private String title;
 
     @NonNull
-    @Column(columnDefinition = "nvarchar(255)")
+    @Column(columnDefinition = "nvarchar(255)", nullable = false)
     private String content;
 
     @Column(name = "create_date")

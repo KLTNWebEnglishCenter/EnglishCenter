@@ -21,6 +21,7 @@ public class Authentication {
     private int id;
 
     @NonNull
+    @Column(columnDefinition = "varchar(255)",nullable = false,unique = true)
     private String role;
 
     @NonNull

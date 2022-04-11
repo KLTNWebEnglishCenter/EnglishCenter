@@ -18,7 +18,7 @@ import java.util.Optional;
 @Service
 @Transactional
 @Slf4j
-public class ClassroomService implements Web.EnglishCenter.service.ClassroomService {
+public class ClassroomServiceImpl implements Web.EnglishCenter.service.ClassroomService {
 
     @Autowired
     private ClassroomRepo classroomRepo;

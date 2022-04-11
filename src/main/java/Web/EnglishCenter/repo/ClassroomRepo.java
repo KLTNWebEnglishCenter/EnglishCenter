@@ -19,4 +19,5 @@ public interface ClassroomRepo extends JpaRepository<Classroom,Integer> {
 
     @Query(value = "select teacher_id from classroom where id=:classroomId",nativeQuery = true)
     Integer findTeacherId(@Param("classroomId") int classroomID);
+
 }
