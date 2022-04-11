@@ -60,9 +60,9 @@ public class UsersRestAPI {
     public ResponseEntity<Users> getUserFromToken(HttpServletRequest request){
         JwtHelper jwtHelper = new JwtHelper();
         String token = jwtHelper.getJwtFromRequest(request);
-//        log.info(token);
+        log.info(token);
         String username = jwtHelper.getUsernameFromJWT(token);
-//        log.info(username);
+        log.info(username);
         Users users = usersService.findByUsername(username);
         return ResponseEntity.ok().body(users);
     }
