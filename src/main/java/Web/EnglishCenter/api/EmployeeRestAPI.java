@@ -36,13 +36,13 @@ public class EmployeeRestAPI {
     /**
      * get employee info by id
      * @author VQKHANH
-     * @param employeeid
+     * @param employeeId
      * @return
      */
-    @GetMapping("/employee/{employeeid}")
-    public ResponseEntity<Employee> findEmployee(@PathVariable(value = "employeeid") int employeeid){
-//        log.info(employeeid+"");
-        return ResponseEntity.ok().body(usersService.findEmployee(employeeid));
+    @GetMapping("/employee/{employeeId}")
+    public ResponseEntity<Employee> findEmployee(@PathVariable(value = "employeeId") int employeeId){
+//        log.info(employeeId+"");
+        return ResponseEntity.ok().body(usersService.findEmployee(employeeId));
     }
 
     /**

@@ -1,19 +1,42 @@
 package Web.EnglishCenter.utils;
 
 import Web.EnglishCenter.entity.user.CustomUserDetails;
+import Web.EnglishCenter.entity.user.Teacher;
+import Web.EnglishCenter.entity.user.Users;
+import Web.EnglishCenter.service.UsersService;
+import Web.EnglishCenter.service.impl.UsersServiceImpl;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.stream.Collectors;
 @Slf4j
+@Component
+@Getter
+@Setter
 public class JwtHelper {
+
+
+
+    // Đoạn JWT_SECRET này là bí mật, chỉ có phía server biết
+    private final String JWT_SECRET = "khanhvo18058521";
+
+    // Thời gian có hiệu lực của chuỗi jwt
+    private final long JWT_EXPIRATION = 604800000L;
+
+    //User for get user info from request
+    @Autowired
+    private UsersService usersService;
 
 
     /**
@@ -30,13 +53,6 @@ public class JwtHelper {
         }
         return bearerToken;
     }
-
-
-    // Đoạn JWT_SECRET này là bí mật, chỉ có phía server biết
-    private final String JWT_SECRET = "khanhvo18058521";
-
-    // Thời gian có hiệu lực của chuỗi jwt
-    private final long JWT_EXPIRATION = 604800000L;
 
     /**
      * Create jwt from user info (username and role)
@@ -76,6 +92,13 @@ public class JwtHelper {
         return username;
     }
 
+    public Users getUserFromRequest(HttpServletRequest request,String dtype){
+        String jwt=getJwtFromRequest(request);
+        log.info("jwt:" +jwt);
+        String username=getUsernameFromJWT(jwt);
+        log.info("username:"+username);
+        return usersService.findByUsername(username, dtype);
+    }
 //    public boolean validateToken(String authToken) {
 //        try {
 //            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(authToken);

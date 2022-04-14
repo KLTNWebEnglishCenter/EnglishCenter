@@ -67,7 +67,7 @@ public class Course {
     public Course(String name, double price) {
         this.name = name;
         this.price = price;
-        this.createDate=LocalDate.now();
+//        this.createDate=LocalDate.now();
         this.enable=true;
     }
 

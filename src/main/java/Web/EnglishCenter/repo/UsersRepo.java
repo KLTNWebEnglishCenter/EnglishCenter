@@ -25,7 +25,7 @@ public interface UsersRepo extends JpaRepository<Users,Integer> {
 //=========================================Find Search===========================================================================
 
     @Query(value = "select * from users where dtype=:dtype and username=:username",nativeQuery = true)
-    List<Users> findByUsername(String username,String dtype);
+    Users findByUsername(String username,String dtype);
 
     @Query(value = "select * from users where dtype=:dtype and full_name like %:fullName%",nativeQuery = true)
     List<Users> findByFullName(String fullName,String dtype);
@@ -36,19 +36,19 @@ public interface UsersRepo extends JpaRepository<Users,Integer> {
     @Query(value = "select * from users where dtype='Teacher'",nativeQuery = true)
     List<Teacher> findAllTeacher();
 
-    @Query(value = "select * from users where dtype='Teacher' and id=:teacherid",nativeQuery = true)
-    Teacher findTeacher(int teacherid);
+    @Query(value = "select * from users where dtype='Teacher' and id=:teacherId",nativeQuery = true)
+    Teacher findTeacher(int teacherId);
     @Query(value = "select * from users where dtype='Student'",nativeQuery = true)
     List<Student> findAllStudent();
 
-    @Query(value = "select * from users where dtype='Student' and id=:studentid",nativeQuery = true)
-    Student findStudent(int studentid);
+    @Query(value = "select * from users where dtype='Student' and id=:studentId",nativeQuery = true)
+    Student findStudent(int studentId);
 
     @Query(value = "select * from users where dtype='Employee'",nativeQuery = true)
     List<Employee> findAllEmployee();
 
-    @Query(value = "select * from users where dtype='Employee' and id=:employeeid",nativeQuery = true)
-    Employee findEmployee(int employeeid);
+    @Query(value = "select * from users where dtype='Employee' and id=:employeeId",nativeQuery = true)
+    Employee findEmployee(int employeeId);
 //==========================================================END===================================================================
 
 

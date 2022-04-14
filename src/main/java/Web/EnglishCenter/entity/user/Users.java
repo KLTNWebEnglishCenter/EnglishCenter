@@ -94,4 +94,29 @@ public class Users implements Serializable {
 		this.email = email;
 		this.enable=true;
 	}
+
+	public Users(int id, @NonNull String username, @NonNull String password, @NonNull String fullName, LocalDate dob, String gender, @NonNull String email, String phoneNumber, boolean enable) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.fullName = fullName;
+		this.dob = dob;
+		this.gender = gender;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.enable = enable;
+	}
+
+	public Users(int id, @NonNull String username, @NonNull String password, @NonNull String fullName, LocalDate dob, String gender, @NonNull String email, String phoneNumber, boolean enable, Authentication authentication) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.fullName = fullName;
+		this.dob = dob;
+		this.gender = gender;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.enable = enable;
+		this.authentication = authentication;
+	}
 }

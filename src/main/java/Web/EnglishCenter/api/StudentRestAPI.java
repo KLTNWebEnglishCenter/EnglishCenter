@@ -36,13 +36,13 @@ public class StudentRestAPI {
     /**
      * get student info by id
      * @author VQKHANH
-     * @param studentid
+     * @param studentId
      * @return
      */
-    @GetMapping("/student/{studentid}")
-    public ResponseEntity<Student> findStudent(@PathVariable(value = "studentid") int studentid){
-//        log.info(studentid+"");
-        return ResponseEntity.ok().body(usersService.findStudent(studentid));
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<Student> findStudent(@PathVariable(value = "studentId") int studentId){
+//        log.info(studentId+"");
+        return ResponseEntity.ok().body(usersService.findStudent(studentId));
     }
 
     /**

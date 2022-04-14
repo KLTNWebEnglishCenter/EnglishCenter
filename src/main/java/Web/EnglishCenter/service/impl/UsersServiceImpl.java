@@ -149,14 +149,13 @@ public class UsersServiceImpl implements UsersService,UserDetailsService {
     @Override
     public List<Users> findByIdOrUsername(String idOrUsername,String dtype){
         List<Users> users=new ArrayList<>();
-        List<Users> list;
         try {
             int id=Integer.parseInt(idOrUsername);
             Users user=findById(id);
             if(user!=null)  users.add(user);
         }catch (Exception e){
-            list=findByUsername(idOrUsername,dtype);
-            if (list!=null&&list.size()>0)users.addAll(list);
+            Users user=findByUsername(idOrUsername,dtype);
+            if (user!=null)users.add(user);
         }
         return users;
     };
@@ -170,7 +169,7 @@ public class UsersServiceImpl implements UsersService,UserDetailsService {
      *
      */
     @Override
-    public List<Users> findByUsername(String username,String dtype){
+    public Users findByUsername(String username,String dtype){
         return usersRepo.findByUsername(username,dtype);
     };
 
@@ -203,12 +202,12 @@ public class UsersServiceImpl implements UsersService,UserDetailsService {
 
     /**
      * @author VQKHANH
-     * @param teacherid
+     * @param teacherId
      * @return
      */
     @Override
-    public Teacher findTeacher(int teacherid) {
-        return usersRepo.findTeacher(teacherid);
+    public Teacher findTeacher(int teacherId) {
+        return usersRepo.findTeacher(teacherId);
     }
 
     /**
@@ -222,12 +221,12 @@ public class UsersServiceImpl implements UsersService,UserDetailsService {
 
     /**
      * @author VQKHANH
-     * @param studentid
+     * @param studentId
      * @return
      */
     @Override
-    public Student findStudent(int studentid) {
-        return usersRepo.findStudent(studentid);
+    public Student findStudent(int studentId) {
+        return usersRepo.findStudent(studentId);
     }
 
     /**
@@ -241,12 +240,12 @@ public class UsersServiceImpl implements UsersService,UserDetailsService {
 
     /**
      * @author VQKHANH
-     * @param employeeid
+     * @param employeeId
      * @return
      */
     @Override
-    public Employee findEmployee(int employeeid) {
-        return usersRepo.findEmployee(employeeid);
+    public Employee findEmployee(int employeeId) {
+        return usersRepo.findEmployee(employeeId);
     }
 //==========================================================END===================================================================
 

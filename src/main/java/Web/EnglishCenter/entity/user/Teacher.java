@@ -52,8 +52,15 @@ public class Teacher extends Users implements Serializable {
         super(username, password, fullName, email);
     }
 
-
     public Teacher(String certificate) {
         this.certificate = certificate;
+    }
+
+    public Teacher(int id, @NonNull String username, @NonNull String password, @NonNull String fullName, LocalDate dob, String gender, @NonNull String email, String phoneNumber, boolean enable) {
+        super(id, username, password, fullName, dob, gender, email, phoneNumber, enable);
+    }
+
+    public Teacher(int id, @NonNull String username, @NonNull String password, @NonNull String fullName, LocalDate dob, String gender, @NonNull String email, String phoneNumber, boolean enable, Authentication authentication) {
+        super(id, username, password, fullName, dob, gender, email, phoneNumber, enable, authentication);
     }
 }
