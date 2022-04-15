@@ -41,14 +41,14 @@ public class TeacherRestAPI {
     /**
      * get teacher info by id
      * @author VQKHANH
-     * @param teacherid
+     * @param teacherId
      * @return
      */
 //    @ResponseBody
-    @GetMapping("/teacher/{teacherid}")
-    public ResponseEntity<Teacher> findTeacher(@PathVariable(value = "teacherid") int teacherid){
-//        log.info(teacherid+"");
-        return ResponseEntity.ok().body(usersService.findTeacher(teacherid));
+    @GetMapping("/teacher/{teacherId}")
+    public ResponseEntity<Teacher> findTeacher(@PathVariable(value = "teacherId") int teacherId){
+//        log.info(teacherId+"");
+        return ResponseEntity.ok().body(usersService.findTeacher(teacherId));
     }
 
     /**
@@ -77,12 +77,12 @@ public class TeacherRestAPI {
     private CourseService courseService;
     /**
      * @author VQKHANH
-     * @param teacherid
+     * @param teacherId
      * @return
      */
-    @GetMapping("/teacher/classrooms/{teacherid}")
-    public ResponseEntity<List<ClassroomDTO>> getAllClassroom(@PathVariable(value = "teacherid") int teacherid){
-        Teacher teacher=usersService.findTeacher(teacherid);
+    @GetMapping("/teacher/classrooms/{teacherId}")
+    public ResponseEntity<List<ClassroomDTO>> getAllClassroom(@PathVariable(value = "teacherId") int teacherId){
+        Teacher teacher=usersService.findTeacher(teacherId);
         List<Classroom> classrooms=teacher.getClassrooms();
 
         List<ClassroomDTO> classroomDTOS = new ArrayList<>();

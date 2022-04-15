@@ -45,18 +45,26 @@ public class Notification {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
+    @JsonBackReference(value = "classroom_notifications")
+    @ManyToOne
+    @JoinColumn(name = "classroom_id")
+    private Classroom classroom;
+
 //    @JsonManagedReference(value = "classrooms_notifications")
-    @ManyToMany
-    @JoinTable(
-            name = "Classroom_Notification",
-            joinColumns = @JoinColumn(name = "notification_id"),
-            inverseJoinColumns = @JoinColumn(name = "classroom_id"))
-    private List<Classroom> classrooms;
+//    @ManyToMany
+//    @JoinTable(
+//            name = "Classroom_Notification",
+//            joinColumns = @JoinColumn(name = "notification_id"),
+//            inverseJoinColumns = @JoinColumn(name = "classroom_id"))
+//    private List<Classroom> classrooms;
+
+    public Notification(int id) {
+        this.id = id;
+    }
 
     public Notification(@NonNull String title, @NonNull String content, Teacher teacher) {
         this.title = title;
         this.content = content;
-        this.createDate = LocalDate.now();
         this.teacher = teacher;
     }
 }

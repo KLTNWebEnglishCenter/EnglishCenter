@@ -75,21 +75,21 @@ public class Classroom {
             inverseJoinColumns = @JoinColumn(name = "schedule_id"))
     private List<Schedule> schedules;
 
-    @JsonBackReference(value = "classrooms_notifications")
-    @ManyToMany(mappedBy = "classrooms", fetch = FetchType.LAZY)
+    @JsonManagedReference(value = "classroom_notifications")
+    @OneToMany(mappedBy = "classroom",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Notification> notifications;
 
     public Classroom( LocalDate startDate,  LocalDate endDate, Teacher teacher,  Course course) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.createDate = LocalDate.now();
+//        this.createDate = LocalDate.now();
         this.teacher = teacher;
         this.course = course;
     }
     public Classroom(LocalDate startDate, LocalDate endDate,  Teacher teacher,  Course course,List<Schedule> schedules) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.createDate = LocalDate.now();
+//        this.createDate = LocalDate.now();
         this.teacher = teacher;
         this.course = course;
         this.schedules=schedules;
@@ -98,6 +98,17 @@ public class Classroom {
     public void addSchedule(Schedule schedule){
         if(schedules==null)schedules=new ArrayList<>();
         else schedules.add(schedule);
+    }
+
+    public Classroom(int id, LocalDate startDate, LocalDate endDate, String status, String classname, int maxMember, LocalDate createDate, LocalDate modifiedDate) {
+        this.id = id;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
+        this.classname = classname;
+        this.maxMember = maxMember;
+        this.createDate = createDate;
+        this.modifiedDate = modifiedDate;
     }
 
     @Override

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -18,6 +19,8 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public Course save(Course course) {
+        if(course.getCreateDate()==null)course.setCreateDate(LocalDate.now());
+        if(course.getModifiedDate()==null)course.setModifiedDate(LocalDate.now());
         return courseRepo.save(course);
     }
 
