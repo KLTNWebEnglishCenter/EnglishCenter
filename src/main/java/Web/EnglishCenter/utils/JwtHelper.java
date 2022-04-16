@@ -92,6 +92,13 @@ public class JwtHelper {
         return username;
     }
 
+    /**
+     * auto extract token from request, decode and find user info
+     * @author VQKHANH
+     * @param request
+     * @param dtype
+     * @return
+     */
     public Users getUserFromRequest(HttpServletRequest request,String dtype){
         String jwt=getJwtFromRequest(request);
         log.info("jwt:" +jwt);
