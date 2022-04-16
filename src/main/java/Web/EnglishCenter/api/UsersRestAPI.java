@@ -1,6 +1,7 @@
 package Web.EnglishCenter.api;
 
 import Web.EnglishCenter.entity.user.Authentication;
+import Web.EnglishCenter.entity.user.CustomUserDetails;
 import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Users;
 import Web.EnglishCenter.service.AuthenticationService;
@@ -76,12 +77,20 @@ public class UsersRestAPI {
     public ResponseEntity<Users> getUserFromToken(HttpServletRequest request){
         JwtHelper jwtHelper = new JwtHelper();
         String token = jwtHelper.getJwtFromRequest(request);
-        log.info(token);
+//        log.info(token);
         String username = jwtHelper.getUsernameFromJWT(token);
-        log.info(username);
-        Users users = usersService.findByUsername(username);
-        return ResponseEntity.ok().body(users);
+        return ResponseEntity.ok().body(usersService.findByUsername(username));
     }
+
+    @PostMapping("/user/author")
+    public ResponseEntity<String> getAuthorFromToken(HttpServletRequest request){
+        JwtHelper jwtHelper = new JwtHelper();
+        String token = jwtHelper.getJwtFromRequest(request);
+//        log.info(token);
+        String author = jwtHelper.getAuthorities(token);
+        return ResponseEntity.ok().body(author);
+    }
+
 
     /**
      * search user by id/username/full_name

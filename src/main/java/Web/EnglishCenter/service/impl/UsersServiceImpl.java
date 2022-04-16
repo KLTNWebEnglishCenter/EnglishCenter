@@ -247,7 +247,15 @@ public class UsersServiceImpl implements UsersService,UserDetailsService {
     public Employee findEmployee(int employeeId) {
         return usersRepo.findEmployee(employeeId);
     }
-//==========================================================END===================================================================
+
+    /**
+     * @author NHLam
+     * @param userId
+     * @return list Authentication
+     */
+
+
+    //==========================================================END===================================================================
 
 //    //For JWT
 //    public UserDetails loadUserById(int userId) {

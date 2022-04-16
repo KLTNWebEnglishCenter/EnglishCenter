@@ -8,6 +8,7 @@ import Web.EnglishCenter.service.impl.UsersServiceImpl;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.Getter;
 import lombok.Setter;
@@ -92,6 +93,14 @@ public class JwtHelper {
         return username;
     }
 
+    public String getAuthorities(String token){
+        Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET.getBytes());
+        JWTVerifier verifier = JWT.require(algorithm).build();
+        DecodedJWT decodedJWT = verifier.verify(token);
+        Claim author = decodedJWT.getClaim("roles");
+        return  author.asString();
+    }
+
     /**
      * auto extract token from request, decode and find user info
      * @author VQKHANH
@@ -106,6 +115,7 @@ public class JwtHelper {
         log.info("username:"+username);
         return usersService.findByUsername(username, dtype);
     }
+
 //    public boolean validateToken(String authToken) {
 //        try {
 //            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(authToken);
