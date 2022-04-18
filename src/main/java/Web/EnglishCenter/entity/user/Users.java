@@ -33,22 +33,18 @@ public class Users implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@NonNull
 	@Column(columnDefinition = "varchar(255)", unique = true, nullable = false)
 	private String username;
 
-	@NonNull
 	@Column(columnDefinition = "varchar(255)", nullable = false)
 	private String password;
 
-	@NonNull
 	@Column(columnDefinition = "nvarchar(255)", nullable = false)
 	private String fullName;
 	private LocalDate dob;
 	@Column(columnDefinition = "nvarchar(255)")
 	private String gender;
 
-	@NonNull
 	@Column(columnDefinition = "varchar(255)",unique = true, nullable = false)
 	private String email;
 	@Column(columnDefinition = "nvarchar(10)",unique = true, nullable = false)
@@ -75,7 +71,7 @@ public class Users implements Serializable {
 //    @OneToMany(mappedBy = "creator",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 //    private List<Notification> notifications;
 
-	@JsonManagedReference(value = "users_posts")
+	@JsonBackReference(value = "users_posts")
 //	@JsonManagedReference
 	@OneToMany(mappedBy = "users", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Post> posts;
@@ -118,5 +114,20 @@ public class Users implements Serializable {
 		this.phoneNumber = phoneNumber;
 		this.enable = enable;
 		this.authentication = authentication;
+	}
+
+	@Override
+	public String toString() {
+		return "Users{" +
+				"id=" + id +
+				", username='" + username + '\'' +
+				", password='" + password + '\'' +
+				", fullName='" + fullName + '\'' +
+				", dob=" + dob +
+				", gender='" + gender + '\'' +
+				", email='" + email + '\'' +
+				", phoneNumber='" + phoneNumber + '\'' +
+				", enable=" + enable +
+				'}';
 	}
 }

@@ -2,9 +2,12 @@ package Web.EnglishCenter.utils;
 
 import Web.EnglishCenter.entity.Classroom;
 import Web.EnglishCenter.entity.Notification;
+import Web.EnglishCenter.entity.Post;
 import Web.EnglishCenter.entity.user.Teacher;
+import Web.EnglishCenter.entity.user.Users;
 import Web.EnglishCenter.entityDTO.ClassroomDTO;
 import Web.EnglishCenter.entityDTO.NotificationDTO;
+import Web.EnglishCenter.entityDTO.PostDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +51,19 @@ public class ConvertDTOHelper {
         return trim_classrooms;
     }
 
+    public PostDTO convertPost(Post post){
+        PostDTO postDTO = new PostDTO(post.getId(),post.getTitle(),post.getContent(),trimUsers(post.getUsers()));
+        return postDTO;
+    }
+
+    public List<PostDTO> convertListPost(List<Post> posts){
+        List<PostDTO> postDTOList = new ArrayList<>();
+        posts.forEach(post -> {
+            postDTOList.add(convertPost(post));
+        });
+        return postDTOList;
+    }
+
     public Classroom trimClassroom(Classroom classroom) {
         Classroom trim_classroom = new Classroom(classroom.getId(), classroom.getStartDate(), classroom.getEndDate(), classroom.getStatus(), classroom.getClassname(), classroom.getMaxMember(), classroom.getCreateDate(), classroom.getModifiedDate());
         return trim_classroom;
@@ -56,5 +72,10 @@ public class ConvertDTOHelper {
     public Teacher trimTeacher(Teacher teacher){
         Teacher trim_teacher=new Teacher(teacher.getId(),teacher.getUsername(),teacher.getPassword(),teacher.getFullName(),teacher.getDob(),teacher.getGender(),teacher.getEmail(),teacher.getPhoneNumber(), teacher.isEnable());
         return  trim_teacher;
+    }
+
+    public Users trimUsers(Users users){
+        Users trim_users = new Users(users.getId(),users.getUsername(),users.getPassword(),users.getFullName(),users.getDob(),users.getGender(),users.getEmail(),users.getPhoneNumber(),users.isEnable());
+        return trim_users;
     }
 }
