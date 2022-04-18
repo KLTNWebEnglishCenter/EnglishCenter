@@ -93,7 +93,6 @@ public class JwtHelper {
         return username;
     }
 
-
     public String getAuthorities(String token){
         Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET.getBytes());
         JWTVerifier verifier = JWT.require(algorithm).build();
@@ -102,7 +101,13 @@ public class JwtHelper {
         return  author.asString();
     }
 
-
+    /**
+     * auto extract token from request, decode and find user info
+     * @author VQKHANH
+     * @param request
+     * @param dtype
+     * @return
+     */
     public Users getUserFromRequest(HttpServletRequest request,String dtype){
         String jwt=getJwtFromRequest(request);
         log.info("jwt:" +jwt);
