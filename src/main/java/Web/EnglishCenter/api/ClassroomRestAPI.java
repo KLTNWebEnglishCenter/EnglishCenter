@@ -3,12 +3,14 @@ package Web.EnglishCenter.api;
 import Web.EnglishCenter.entity.Classroom;
 import Web.EnglishCenter.entity.Schedule;
 import Web.EnglishCenter.entity.course.Course;
+import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entityDTO.ClassroomDTO;
 import Web.EnglishCenter.service.ClassroomService;
 import Web.EnglishCenter.service.CourseService;
 import Web.EnglishCenter.service.ScheduleService;
 import Web.EnglishCenter.service.UsersService;
+import Web.EnglishCenter.utils.ConvertDTOHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +37,8 @@ public class ClassroomRestAPI {
 
     @Autowired
     private ScheduleService scheduleService;
+
+    private ConvertDTOHelper convertDTOHelper=new ConvertDTOHelper();
 
     @GetMapping("/classrooms")
     public ResponseEntity<List<ClassroomDTO>> getAll(){
@@ -102,5 +106,39 @@ public class ClassroomRestAPI {
         Classroom classroom = classroomService.findById(classroomId);
         classroomService.delete(classroom);
         return ResponseEntity.ok().body(classroom);
+    }
+
+    /**
+     * @author VQKHANH
+     * @param courseId
+     * @return
+     */
+    @GetMapping("/classroom/course/{courseId}")
+    public ResponseEntity<List<ClassroomDTO>> findClassroomByCourseId(@PathVariable int courseId){
+        List<Classroom> classrooms=classroomService.findByCourseID(courseId);
+        List<ClassroomDTO> list=new ArrayList<>();
+        if(classrooms.size()>0){
+            list=convertDTOHelper.convertListClassroomContainStudentAndTeacher(classrooms);
+        }
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping("/classroom/countstudent/{classroomId}")
+    public ResponseEntity<Integer> countStudent(@PathVariable int classroomId){
+        int count=classroomService.countStudent(classroomId);
+        return ResponseEntity.ok().body(count);
+    }
+
+    /**
+     * @author VQKHANH
+     * @param classroomId
+     * @param students
+     * @return
+     */
+    @PutMapping("/classroom/addstudent/{classroomId}")
+    public ResponseEntity<Classroom> addStudentToClassroom(@PathVariable int classroomId,@RequestBody List<Student> students){
+        Classroom classroom=classroomService.findById(classroomId);
+        classroom.getStudents().addAll(students);
+        return ResponseEntity.ok().body(classroomService.save(classroom));
     }
 }

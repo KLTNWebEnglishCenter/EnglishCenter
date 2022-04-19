@@ -1,5 +1,6 @@
 package Web.EnglishCenter.api;
 
+import Web.EnglishCenter.entity.course.UsersCourseRequest;
 import Web.EnglishCenter.entity.user.Authentication;
 import Web.EnglishCenter.entity.user.CustomUserDetails;
 import Web.EnglishCenter.entity.user.Student;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController

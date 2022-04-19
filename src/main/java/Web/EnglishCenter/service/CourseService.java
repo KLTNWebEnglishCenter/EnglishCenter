@@ -11,4 +11,6 @@ public interface CourseService {
     public List<Course> findAll();
     public Course findById(int id);
     public Course findCourseByClassroom(int classroomId);
+    public List<Course> findByName(String name);
+    public List<Course> findByIdOrCourseName(String idOrCourseName);
 }

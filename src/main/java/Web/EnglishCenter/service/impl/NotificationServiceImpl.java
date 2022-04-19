@@ -95,6 +95,13 @@ public class NotificationServiceImpl implements NotificationService {
 //==========================================================For search feature===================================================================
 
 
+    /**
+     * @author VQKHANH
+     * @param id
+     * @param classroomIdOrClassname
+     * @param teacherId
+     * @return
+     */
     @Override
     public List<Notification> searchNotification(int id, String classroomIdOrClassname, int teacherId) {
         List<Notification> notifications=new ArrayList<>();
@@ -110,6 +117,12 @@ public class NotificationServiceImpl implements NotificationService {
         return notifications;
     }
 
+    /**
+     * @author VQKHANH
+     * @param classroomIdOrClassname
+     * @param teacherId
+     * @return
+     */
     @Override
     public List<Notification> findNotificationByClassroomIdOrClassname(String classroomIdOrClassname, int teacherId){
         List<Notification> notifications=new ArrayList<>();
@@ -125,11 +138,23 @@ public class NotificationServiceImpl implements NotificationService {
         return  notifications;
     }
 
+    /**
+     * @author VQKHANH
+     * @param classroomId
+     * @param teacherId
+     * @return
+     */
     @Override
     public List<Notification> findByClassroomId(int classroomId,int teacherId) {
         return notificationRepo.findByClassroomId(classroomId,teacherId);
     }
 
+    /**
+     * @author VQKHANH
+     * @param classname
+     * @param teacherId
+     * @return
+     */
     @Override
     public List<Notification> findByClassname(String classname,int teacherId) {
         return notificationRepo.findByClassname(classname,teacherId);

@@ -30,8 +30,15 @@ public class ClassroomServiceImpl implements Web.EnglishCenter.service.Classroom
     @Autowired
     private CourseRepo courseRepo;
 
+    /**
+     * to ensure that all classroom attribute are correct
+     * @author VQKHANH
+     * @param classroom
+     * @return
+     */
     @Override
     public Classroom save(Classroom classroom) {
+        if(classroom.getStudents().size()>classroom.getMaxMember())return null;
         if(classroom.getCreateDate()==null)classroom.setCreateDate(LocalDate.now());
         if(classroom.getModifiedDate()==null)classroom.setModifiedDate(LocalDate.now());
         return classroomRepo.save(classroom);
@@ -50,5 +57,25 @@ public class ClassroomServiceImpl implements Web.EnglishCenter.service.Classroom
     @Override
     public Classroom findById(int id) {
         return classroomRepo.findById(id).get();
+    }
+
+    /**
+     * @author VQKHANH
+     * @param courseId
+     * @return
+     */
+    @Override
+    public List<Classroom> findByCourseID(int courseId) {
+        return classroomRepo.findByCourseID(courseId);
+    }
+
+    /**
+     * @author VQKHANH
+     * @param classroomId
+     * @return
+     */
+    @Override
+    public Integer countStudent(int classroomId){
+        return classroomRepo.countStudent(classroomId);
     }
 }

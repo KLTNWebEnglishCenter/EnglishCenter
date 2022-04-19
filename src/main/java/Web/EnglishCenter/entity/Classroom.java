@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property  = "id")
-public class Classroom {
+public class Classroom implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -111,22 +112,4 @@ public class Classroom {
         this.modifiedDate = modifiedDate;
     }
 
-    @Override
-    public String toString() {
-        return "Classroom{" +
-                "id=" + id +
-                ", startDate=" + startDate +
-                ", endDate=" + endDate +
-                ", status='" + status + '\'' +
-                ", classname='" + classname + '\'' +
-                ", maxMember=" + maxMember +
-                ", createDate=" + createDate +
-                ", modifiedDate=" + modifiedDate +
-                ", teacher=" + teacher +
-                ", course=" + course +
-                ", students=" + students +
-                ", schedules=" + schedules +
-                ", notifications=" + notifications +
-                '}';
-    }
 }

@@ -42,4 +42,8 @@ public class Student extends Users implements Serializable {
     public Student(@NonNull String username, @NonNull String password, @NonNull String fullName, @NonNull String email) {
         super(username, password, fullName, email);
     }
+
+    public Student(int id, @NonNull String username, @NonNull String password, @NonNull String fullName, LocalDate dob, String gender, @NonNull String email, String phoneNumber, boolean enable) {
+        super(id, username, password, fullName, dob, gender, email, phoneNumber, enable);
+    }
 }

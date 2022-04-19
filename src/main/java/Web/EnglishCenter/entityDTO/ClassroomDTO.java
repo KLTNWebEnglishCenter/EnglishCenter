@@ -35,6 +35,8 @@ public class ClassroomDTO {
     private Teacher teacher;
     private Course course;
 
+    private List<Student> students;
+
     public ClassroomDTO(LocalDate startDate, LocalDate endDate, Teacher teacher, Course course) {
         this.startDate = startDate;
         this.endDate = endDate;

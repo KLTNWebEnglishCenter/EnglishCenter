@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity(name = "Question")
@@ -17,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
         property  = "id")
-public class Question {
+public class Question implements Serializable {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)

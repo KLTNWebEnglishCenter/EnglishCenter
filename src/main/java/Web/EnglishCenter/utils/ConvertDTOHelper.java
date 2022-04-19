@@ -2,8 +2,13 @@ package Web.EnglishCenter.utils;
 
 import Web.EnglishCenter.entity.Classroom;
 import Web.EnglishCenter.entity.Notification;
+import Web.EnglishCenter.entity.course.Category;
+import Web.EnglishCenter.entity.course.Course;
+import Web.EnglishCenter.entity.course.Level;
+import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entityDTO.ClassroomDTO;
+import Web.EnglishCenter.entityDTO.CourseDTO;
 import Web.EnglishCenter.entityDTO.NotificationDTO;
 
 import java.util.ArrayList;
@@ -59,6 +64,8 @@ public class ConvertDTOHelper {
      */
     public ClassroomDTO convertClassroom(Classroom classroom){
         ClassroomDTO classroomdto = new ClassroomDTO(classroom.getId(),classroom.getStartDate(),classroom.getEndDate(),classroom.getStatus(),classroom.getClassname(),classroom.getMaxMember(),classroom.getCreateDate(),classroom.getModifiedDate());
+
+        classroomdto.setTeacher(trimTeacher(classroom.getTeacher()));
         return classroomdto;
     }
 
@@ -96,5 +103,105 @@ public class ConvertDTOHelper {
     public Teacher trimTeacher(Teacher teacher){
         Teacher trim_teacher=new Teacher(teacher.getId(),teacher.getUsername(),teacher.getPassword(),teacher.getFullName(),teacher.getDob(),teacher.getGender(),teacher.getEmail(),teacher.getPhoneNumber(), teacher.isEnable());
         return  trim_teacher;
+    }
+
+
+    /**
+     * @author VQKHANH
+     * @param courses
+     * @return
+     */
+    public List<CourseDTO> convertListCourse(List<Course> courses){
+        ArrayList<CourseDTO> courseDTOS=new ArrayList<>();
+        for (Course course:courses
+             ) {
+            courseDTOS.add(convertCourse(course));
+        }
+        return courseDTOS;
+    }
+
+    /**
+     * @author VQKHANH
+     * @param course
+     * @return
+     */
+    public CourseDTO convertCourse(Course course){
+        CourseDTO courseDTO = new CourseDTO(course.getId(),course.getName(),course.getDescription(),course.getPrice(),course.getCreateDate(),course.getModifiedDate(),course.getDiscount());
+        courseDTO.setEnable(course.isEnable());
+        courseDTO.setLevel(trimLevel(course.getLevel()));
+        courseDTO.setCategory(trimCategory(course.getCategory()));
+        return courseDTO;
+    }
+
+    /**
+     * @author VQKHANH
+     * @param level
+     * @return
+     */
+    public Level trimLevel(Level level){
+        level.setCourses(null);
+        return level;
+    }
+
+    /**
+     * @author VQKHANH
+     * @param category
+     * @return
+     */
+    public Category trimCategory(Category category){
+        category.setCourses(null);
+        return category;
+    }
+
+    /**
+     * Convert list Classroom to list ClassroomDTO
+     * @author VQKHANH
+     * @param classrooms
+     * @return
+     */
+    public List<ClassroomDTO> convertListClassroomContainStudentAndTeacher(List<Classroom> classrooms){
+        List<ClassroomDTO> list = new ArrayList<>();
+        classrooms.forEach(c->{
+            list.add(convertClassroomContainStudentAndTeacher(c));
+        });
+        return list;
+    }
+
+    /**
+     * Convert Classroom to ClassroomDTO
+     * @author VQKHANH
+     * @param classroom
+     * @return
+     */
+    public ClassroomDTO convertClassroomContainStudentAndTeacher(Classroom classroom){
+        ClassroomDTO convert_classroom = new ClassroomDTO(classroom.getId(), classroom.getStartDate(), classroom.getEndDate(), classroom.getStatus(), classroom.getClassname(), classroom.getMaxMember(), classroom.getCreateDate(), classroom.getModifiedDate());
+        convert_classroom.setTeacher(trimTeacher(classroom.getTeacher()));
+        convert_classroom.setStudents(trimListStudent(classroom.getStudents()));
+        convert_classroom.setCourse(null);
+        return convert_classroom;
+    }
+
+    /**
+     * @author VQKHANH
+     * @param students
+     * @return
+     */
+    public List<Student> trimListStudent(List<Student> students){
+        List<Student> list=new ArrayList<>();
+        for (Student student: students
+             ) {
+            list.add(trimStudent(student));
+        }
+        return list;
+    }
+
+    /**
+     * @author VQKHANH
+     * @param student
+     * @return
+     */
+    public Student trimStudent(Student student){
+        Student trim_student=new Student(student.getId(),student.getUsername(),student.getPassword(),student.getFullName(),student.getDob(),student.getGender(),student.getEmail(),student.getPhoneNumber(), student.isEnable());
+        return  trim_student;
     }
 }

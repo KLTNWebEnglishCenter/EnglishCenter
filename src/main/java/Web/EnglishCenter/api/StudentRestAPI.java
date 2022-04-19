@@ -1,16 +1,20 @@
 package Web.EnglishCenter.api;
 
+import Web.EnglishCenter.entity.course.UsersCourseRequest;
 import Web.EnglishCenter.entity.user.Authentication;
 import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.service.AuthenticationService;
+import Web.EnglishCenter.service.UsersCourseRequestService;
 import Web.EnglishCenter.service.UsersService;
 import Web.EnglishCenter.utils.RoleType;
+import Web.EnglishCenter.utils.UserRequestStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,6 +26,9 @@ public class StudentRestAPI {
     private UsersService usersService;
     @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    private UsersCourseRequestService usersCourseRequestService;
 
     /**
      * get list of all student
@@ -61,5 +68,34 @@ public class StudentRestAPI {
             student.setAuthentication(authentication);
         }
         return ResponseEntity.ok().body((Student) usersService.save(student));
+    }
+
+    /**
+     * @author VQKHANH
+     * @param courseId
+     * @return
+     */
+    @GetMapping("/student/course/{courseId}")
+    public ResponseEntity<List<Student>> findStudentRequestJoinCourseByCourseId(@PathVariable int courseId){
+        List<UsersCourseRequest> usersCourseRequests=usersCourseRequestService.findByCourseId(courseId);
+        List<Student> students=new ArrayList<>();
+        if(usersCourseRequests.size()>0)
+            for (UsersCourseRequest usersCourseRequest: usersCourseRequests) {
+                students.add(usersCourseRequest.getStudent());
+            }
+        return ResponseEntity.ok().body(students);
+    }
+
+    /**
+     * @author VQKHANH
+     * @param studentId
+     * @param courseId
+     * @return
+     */
+    @PutMapping("/student/requestcourse/status/{studentId}/{courseId}")
+    public ResponseEntity<UsersCourseRequest> updateStudentRequestCourseStatus(@PathVariable int studentId,@PathVariable int courseId){
+       UsersCourseRequest usersCourseRequest=usersCourseRequestService.findByCourseIdAndStudentId(courseId,studentId);
+       if(usersCourseRequest!=null) usersCourseRequest.setStatus(UserRequestStatus.APPROVED);
+       return ResponseEntity.ok().body( usersCourseRequestService.save(usersCourseRequest));
     }
 }

@@ -13,4 +13,7 @@ import java.util.List;
 public interface CourseRepo extends JpaRepository<Course,Integer> {
     @Query(value = "select *  from course where id = (select course_id from classroom where id =:classroomId)",nativeQuery = true)
     Course findCourseByClassroomId(@Param("classroomId") int classroomId);
+
+    @Query(value = "select * from course where name like %:name%",nativeQuery = true)
+    List<Course> findByName(String name);
 }

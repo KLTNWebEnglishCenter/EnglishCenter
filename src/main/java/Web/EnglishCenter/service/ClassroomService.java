@@ -9,4 +9,6 @@ public interface ClassroomService {
     public void delete(Classroom classroom);
     public List<Classroom> findAll();
     public Classroom findById(int id);
+    public List<Classroom> findByCourseID(int courseId);
+    public Integer countStudent(int classroomId);
 }
