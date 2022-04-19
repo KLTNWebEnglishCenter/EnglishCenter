@@ -2,11 +2,14 @@ package Web.EnglishCenter.entity;
 
 import Web.EnglishCenter.entity.user.Users;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity(name = "Post")
 @Getter
@@ -14,6 +17,8 @@ import java.io.Serializable;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property  = "id")
 public class Post implements Serializable {
 
     @Id
@@ -28,8 +33,17 @@ public class Post implements Serializable {
     @Column(columnDefinition = "nvarchar(255)",nullable = false)
     private String content;
 
+    @Column(columnDefinition = "nvarchar(255)",nullable = false)
+    private String status;
+
+    @Column(name = "create_date")
+    private LocalDate createDate;
+
+    @Column(name = "modified_date")
+    private LocalDate modifiedDate;
+
     @JsonBackReference(value = "users_posts")
-//    @JsonBackReference
+//    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "users_id")
     private Users users;
@@ -37,5 +51,15 @@ public class Post implements Serializable {
     public Post(@NonNull String title, @NonNull String content) {
         this.title = title;
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", users=" + users +
+                '}';
     }
 }

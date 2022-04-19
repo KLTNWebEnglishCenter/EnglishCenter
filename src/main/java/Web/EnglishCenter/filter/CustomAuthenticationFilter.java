@@ -58,7 +58,6 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 //                .withIssuer(request.getRequestURL().toString())
 //                .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(",")))
 //                .sign(algorithm);
-        log.info(user.toString());
         String access_token=jwtHelper.generateToken(user,request);
 //        log.info("access token exp time: {}", new Date(System.currentTimeMillis() + (10 * 60 * 1000)));
         response.setHeader("access_token", access_token);
