@@ -9,6 +9,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity(name = "Post")
 @Getter
@@ -31,6 +32,15 @@ public class Post implements Serializable {
     @NonNull
     @Column(columnDefinition = "nvarchar(255)",nullable = false)
     private String content;
+
+    @Column(columnDefinition = "nvarchar(255)",nullable = false)
+    private String status;
+
+    @Column(name = "create_date")
+    private LocalDate createDate;
+
+    @Column(name = "modified_date")
+    private LocalDate modifiedDate;
 
     @JsonBackReference(value = "users_posts")
 //    @JsonManagedReference

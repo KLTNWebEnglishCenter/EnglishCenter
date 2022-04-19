@@ -52,6 +52,11 @@ public class PostRestAPI {
         return ResponseEntity.ok().body(post);
     }
 
+    @GetMapping("/post/status/no/accept")
+    public ResponseEntity<List<Post>> getAllPostWithStatusNoAccept(){
+        return ResponseEntity.ok().body(postService.findAllPostWithStatusNoAccept());
+    }
+
 //    @GetMapping("/post/testSave")
 //    public ResponseEntity<Post> testSave(){
 //        Post post = new Post("68jutfygb","114hfvh");

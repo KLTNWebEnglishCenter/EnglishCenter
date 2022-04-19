@@ -10,4 +10,5 @@ public interface PostService {
     public void delete(Post post);
     public List<Post> findAll();
     public Post findById(int id);
+    public List<Post> findAllPostWithStatusNoAccept();
 }
