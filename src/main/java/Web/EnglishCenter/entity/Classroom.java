@@ -112,4 +112,23 @@ public class Classroom implements Serializable {
         this.modifiedDate = modifiedDate;
     }
 
+
+    @Override
+    public String toString() {
+        return "Classroom{" +
+                "id=" + id +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", status='" + status + '\'' +
+                ", classname='" + classname + '\'' +
+                ", maxMember=" + maxMember +
+                ", createDate=" + createDate +
+                ", modifiedDate=" + modifiedDate +
+                ", teacher=" + teacher +
+                ", course=" + course +
+                ", students=" + students +
+                ", schedules=" + schedules +
+                ", notifications=" + notifications +
+                '}';
+    }
 }

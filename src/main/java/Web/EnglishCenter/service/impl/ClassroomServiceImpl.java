@@ -38,9 +38,11 @@ public class ClassroomServiceImpl implements Web.EnglishCenter.service.Classroom
      */
     @Override
     public Classroom save(Classroom classroom) {
-        if(classroom.getStudents().size()>classroom.getMaxMember())return null;
+        log.info(classroom.toString());
+        if(classroom.getStudents() != null && classroom.getStudents().size()>classroom.getMaxMember())return null;
         if(classroom.getCreateDate()==null)classroom.setCreateDate(LocalDate.now());
         if(classroom.getModifiedDate()==null)classroom.setModifiedDate(LocalDate.now());
+
         return classroomRepo.save(classroom);
     }
 
