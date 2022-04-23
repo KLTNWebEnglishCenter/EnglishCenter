@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,5 +40,24 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> findAllPostWithStatusNoAccept() {
         return postRepo.getListPostHasNotAccept();
+    }
+
+    @Override
+    public List<Post> findMyPost(int id) {
+        return postRepo.getMyPost(id);
+    }
+
+    @Override
+    public List<Post> findByIdOrTitle(String idOrTitle) {
+        List<Post> posts = new ArrayList<>();
+        try{
+            int id = Integer.parseInt(idOrTitle);
+            Post post = postRepo.getById(id);
+            if(post != null) posts.add(post);
+        }catch (Exception e){
+            List<Post> postList = postRepo.getPostByTitle(idOrTitle);
+            if(postList.size() > 0) posts.addAll(postList);
+        }
+        return posts;
     }
 }

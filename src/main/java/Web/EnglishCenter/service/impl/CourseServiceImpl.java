@@ -73,8 +73,7 @@ public class CourseServiceImpl implements CourseService {
             if(temp.size()>0)courses.addAll(temp);
         }
             log.info("courses:"+courses.size());
-        for (Course course: courses
-             ) {
+        for (Course course: courses) {
             course.setClassrooms(null);
             course.setUserRequestCourses(null);
             log.info(course.toString());

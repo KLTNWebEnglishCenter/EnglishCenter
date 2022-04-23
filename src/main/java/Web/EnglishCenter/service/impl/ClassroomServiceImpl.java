@@ -80,4 +80,20 @@ public class ClassroomServiceImpl implements Web.EnglishCenter.service.Classroom
     public Integer countStudent(int classroomId){
         return classroomRepo.countStudent(classroomId);
     }
+
+    @Override
+    public List<Classroom> findByIdOrClassroomName(String idOrName) {
+        List<Classroom> classrooms = new ArrayList<>();
+        try {
+            int id = Integer.parseInt(idOrName);
+            Classroom classroom = classroomRepo.getById(id);
+            if(classroom != null) classrooms.add(classroom);
+        }catch (Exception e){
+            List<Classroom> temp = classroomRepo.findClassroomByName(idOrName);
+            if(temp.size() > 0) classrooms.addAll(temp);
+        }
+        return classrooms;
+    }
+
+
 }

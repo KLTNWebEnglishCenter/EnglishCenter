@@ -12,4 +12,10 @@ public interface PostRepo extends JpaRepository<Post,Integer> {
 
     @Query(value = "select * from post where status = 'yetAccept'",nativeQuery = true)
     List<Post> getListPostHasNotAccept();
+
+    @Query(value = "select * from post where users_id =:id",nativeQuery = true)
+    List<Post> getMyPost(int id);
+
+    @Query(value = "select * from post where title like %:title%",nativeQuery = true)
+    List<Post> getPostByTitle(String title);
 }

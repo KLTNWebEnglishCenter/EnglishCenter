@@ -25,4 +25,7 @@ public interface ClassroomRepo extends JpaRepository<Classroom,Integer> {
 
     @Query(value = "select COUNT(student_id) as numberOfStudent from [users_classroom] where classroom_id=:classroomId",nativeQuery = true)
     Integer countStudent(int classroomId);
+
+    @Query(value = "select * from classroom where classname like %:name%", nativeQuery = true)
+    List<Classroom> findClassroomByName(String name);
 }
