@@ -123,7 +123,7 @@ public class Classroom implements Serializable {
                 ", teacher=" + teacher +
                 ", course=" + course +
                 ", students=" + students +
-                ", schedules=" + schedules +
+                ", schedules=" + classroomSchedules +
                 ", notifications=" + notifications +
                 '}';
     }

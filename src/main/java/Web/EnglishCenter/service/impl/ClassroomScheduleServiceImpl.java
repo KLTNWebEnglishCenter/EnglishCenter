@@ -55,4 +55,10 @@ public class ClassroomScheduleServiceImpl implements ClassroomScheduleService {
 //        }
         return ls;
     };
+
+    @Override
+    public List<String> getScheduleOfStudent(int studentId, LocalDate currentDate, String dayOfWeek) {
+        List<String> ls=classroomScheduleRepo.getScheduleOfStudent(studentId,currentDate,dayOfWeek);
+        return ls;
+    }
 }

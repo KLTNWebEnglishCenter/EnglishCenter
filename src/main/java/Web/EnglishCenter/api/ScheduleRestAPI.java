@@ -1,6 +1,7 @@
 package Web.EnglishCenter.api;
 
 import Web.EnglishCenter.entity.schedule.Schedule;
+import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entityDTO.ScheduleInfoHolder;
 import Web.EnglishCenter.service.ClassroomScheduleService;
@@ -63,11 +64,26 @@ public class ScheduleRestAPI {
 
         List<String> list=classroomScheduleService.getScheduleOfTeacher(teacher.getId(),selectedDate,dayOfWeek);
         List<ScheduleInfoHolder> scheduleInfoHolders=utils.convertStringToListScheduleHolder(list);
-        for (ScheduleInfoHolder holder: scheduleInfoHolders
-        ) {
-            log.info(holder.toString());
-        }
+//        for (ScheduleInfoHolder holder: scheduleInfoHolders
+//        ) {
+//            log.info(holder.toString());
+//        }
         return ResponseEntity.ok().body(scheduleInfoHolders);
     }
 
+
+    @PostMapping("/schedule/student")
+    public ResponseEntity<List<ScheduleInfoHolder>> getScheduleOfStudent(HttpServletRequest request, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate selectedDate){
+        Student student= (Student) jwtHelper.getUserFromRequest(request,UsersType.STUDENT);
+
+        String dayOfWeek=utils.getDayOfWeekOfSpecifyDate(selectedDate);
+
+        List<String> list=classroomScheduleService.getScheduleOfStudent(student.getId(),selectedDate,dayOfWeek);
+        List<ScheduleInfoHolder> scheduleInfoHolders=utils.convertStringToListScheduleHolder(list);
+//        for (ScheduleInfoHolder holder: scheduleInfoHolders
+//        ) {
+//            log.info(holder.toString());
+//        }
+        return ResponseEntity.ok().body(scheduleInfoHolders);
+    }
 }

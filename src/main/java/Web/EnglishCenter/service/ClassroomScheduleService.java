@@ -13,4 +13,5 @@ public interface ClassroomScheduleService {
     public ClassroomSchedule findById(int id);
 
     public List<String> getScheduleOfTeacher(int teacherId, LocalDate currentDate, String dayOfWeek);
+    public List<String> getScheduleOfStudent(int studentId, LocalDate currentDate,String dayOfWeek);
 }
