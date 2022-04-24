@@ -15,4 +15,7 @@ public interface CourseRepo extends JpaRepository<Course,Integer> {
 
     @Query(value = "select * from course where name like %:name%",nativeQuery = true)
     List<Course> findByName(String name);
+
+    @Query(value = "select * from course where category_id =:category_id",nativeQuery = true)
+    List<Course> findByCategory(int category_id);
 }

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -55,6 +56,18 @@ public class PostRestAPI {
     @GetMapping("/post/status/no/accept")
     public ResponseEntity<List<Post>> getAllPostWithStatusNoAccept(){
         return ResponseEntity.ok().body(postService.findAllPostWithStatusNoAccept());
+    }
+
+    @GetMapping("/post/my/{id}")
+    public ResponseEntity<List<Post>> getMyPost(@PathVariable int id){
+        return ResponseEntity.ok().body(postService.findMyPost(id));
+    }
+
+    @PostMapping("/post/searchByIdOrTitle")
+    public ResponseEntity<List<PostDTO>> getPostByIdOrTitle(String idOrTitle){
+        List<Post> posts = postService.findByIdOrTitle(idOrTitle);
+        List<PostDTO> postDTOList = convertDTOHelper.convertListPost(posts);
+        return ResponseEntity.ok().body(postDTOList);
     }
 
 //    @GetMapping("/post/testSave")

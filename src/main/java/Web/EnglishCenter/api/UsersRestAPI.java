@@ -67,6 +67,17 @@ public class UsersRestAPI {
         return ResponseEntity.ok().body(usersService.save(student));
     }
 
+    @PostMapping("/user/update")
+    public ResponseEntity<Users> update(@RequestBody Users users){
+        Users users1 = usersService.findById(users.getId());
+        users1.setFullName(users.getFullName());
+        users1.setEmail(users.getEmail());
+        users1.setDob(users.getDob());
+        users1.setGender(users.getGender());
+        users1.setPhoneNumber(users.getPhoneNumber());
+        return ResponseEntity.ok().body(usersService.save(users1));
+    }
+
 //    @GetMapping("/user/save")
 //    public ResponseEntity<Users> testSave(){
 //        Users users=new Users("khanh123","123456","voquockhanh","khanh123@mail.com");

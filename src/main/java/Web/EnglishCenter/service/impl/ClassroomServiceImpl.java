@@ -34,9 +34,11 @@ public class ClassroomServiceImpl implements Web.EnglishCenter.service.Classroom
      */
     @Override
     public Classroom save(Classroom classroom) {
-        if(classroom.getStudents().size()>classroom.getMaxMember())return null;
+        log.info(classroom.toString());
+        if(classroom.getStudents() != null && classroom.getStudents().size()>classroom.getMaxMember())return null;
         if(classroom.getCreateDate()==null)classroom.setCreateDate(LocalDate.now());
         if(classroom.getModifiedDate()==null)classroom.setModifiedDate(LocalDate.now());
+
         return classroomRepo.save(classroom);
     }
 
@@ -74,4 +76,20 @@ public class ClassroomServiceImpl implements Web.EnglishCenter.service.Classroom
     public Integer countStudent(int classroomId){
         return classroomRepo.countStudent(classroomId);
     }
+
+    @Override
+    public List<Classroom> findByIdOrClassroomName(String idOrName) {
+        List<Classroom> classrooms = new ArrayList<>();
+        try {
+            int id = Integer.parseInt(idOrName);
+            Classroom classroom = classroomRepo.getById(id);
+            if(classroom != null) classrooms.add(classroom);
+        }catch (Exception e){
+            List<Classroom> temp = classroomRepo.findClassroomByName(idOrName);
+            if(temp.size() > 0) classrooms.addAll(temp);
+        }
+        return classrooms;
+    }
+
+
 }

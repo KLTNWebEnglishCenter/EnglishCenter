@@ -5,14 +5,13 @@ import Web.EnglishCenter.entity.Notification;
 import Web.EnglishCenter.entity.course.Category;
 import Web.EnglishCenter.entity.course.Course;
 import Web.EnglishCenter.entity.course.Level;
+import Web.EnglishCenter.entity.exam.Exam;
+import Web.EnglishCenter.entity.exam.Question;
 import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.Post;
 import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entity.user.Users;
-import Web.EnglishCenter.entityDTO.ClassroomDTO;
-import Web.EnglishCenter.entityDTO.CourseDTO;
-import Web.EnglishCenter.entityDTO.NotificationDTO;
-import Web.EnglishCenter.entityDTO.PostDTO;
+import Web.EnglishCenter.entityDTO.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -235,4 +234,33 @@ public class ConvertDTOHelper {
         Users trim_users = new Users(users.getId(), users.getUsername(), users.getPassword(), users.getFullName(), users.getDob(), users.getGender(), users.getEmail(), users.getPhoneNumber(), users.isEnable());
         return trim_users;
     }
+
+    public List<QuestionDTO> convertListQuestion(List<Question> questions){
+        List<QuestionDTO> questionDTOS = new ArrayList<>();
+        questions.forEach(question -> {
+            questionDTOS.add(trimQuestion(question));
+        });
+        return questionDTOS;
+    }
+
+    public List<ExamDTO> convertListExam(List<Exam> exams){
+        List<ExamDTO> examDTOS = new ArrayList<>();
+        exams.forEach(exam -> {
+            examDTOS.add(trimExam(exam));
+        });
+        return examDTOS;
+    }
+
+    public QuestionDTO trimQuestion(Question question){
+        QuestionDTO questionDTO = new QuestionDTO(question.getId(), question.getContent(),question.getCorrectAnswer(),question.getAnswerA(),question.getAnswerB(),question.getAnswerC(),question.getAnswerD());
+        return questionDTO;
+    }
+
+    public ExamDTO trimExam(Exam exam){
+        List<QuestionDTO> questionDTOS = convertListQuestion(exam.getQuestions());
+        ExamDTO examDTO = new ExamDTO(exam.getId(), exam.getName(),exam.getDescription(),exam.getStatus(),trimTeacher(exam.getTeacher()),questionDTOS);
+        return examDTO;
+    }
+
+
 }

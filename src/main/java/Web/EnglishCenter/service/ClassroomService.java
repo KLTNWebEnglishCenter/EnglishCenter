@@ -11,4 +11,5 @@ public interface ClassroomService {
     public Classroom findById(int id);
     public List<Classroom> findByCourseID(int courseId);
     public Integer countStudent(int classroomId);
+    public List<Classroom> findByIdOrClassroomName(String idOrName);
 }

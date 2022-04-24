@@ -11,4 +11,6 @@ public interface PostService {
     public List<Post> findAll();
     public Post findById(int id);
     public List<Post> findAllPostWithStatusNoAccept();
+    public List<Post> findMyPost(int id);
+    public List<Post> findByIdOrTitle(String idOrTitle);
 }

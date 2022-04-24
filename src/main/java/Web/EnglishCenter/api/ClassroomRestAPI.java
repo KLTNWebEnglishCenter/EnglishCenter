@@ -153,4 +153,22 @@ public class ClassroomRestAPI {
         classroom.getStudents().addAll(students);
         return ResponseEntity.ok().body(classroomService.save(classroom));
     }
+
+    @PostMapping("/classroom/findbyidorclassname")
+    public ResponseEntity<List<ClassroomDTO>> findByIdOrClassName(@RequestParam String idOrClassName){
+        List<ClassroomDTO> classroomDTOS = new ArrayList<>();
+        List<Classroom> classrooms = classroomService.findByIdOrClassroomName(idOrClassName);
+        if(classrooms.size() > 0){
+            classrooms.forEach(c->{
+                ClassroomDTO classroom = new ClassroomDTO(c.getId(),c.getStartDate(),c.getEndDate(),c.getStatus(),c.getClassname(),c.getMaxMember(),c.getCreateDate(),c.getModifiedDate());
+                Teacher teacher = usersService.findTeacherByClassroomId(c.getId());
+                Course course = courseService.findCourseByClassroom(c.getId());
+                classroom.setTeacher(teacher);
+                classroom.setCourse(course);
+                classroomDTOS.add(classroom);
+            });
+        }
+        return ResponseEntity.ok().body(classroomDTOS);
+    }
+
 }
