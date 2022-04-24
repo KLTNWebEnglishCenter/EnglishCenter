@@ -1,23 +1,13 @@
 package Web.EnglishCenter.entity.user;
 
-import Web.EnglishCenter.entity.Classroom;
-import Web.EnglishCenter.entity.Document;
-import Web.EnglishCenter.entity.Notification;
 import Web.EnglishCenter.entity.Post;
-import Web.EnglishCenter.entity.course.UsersCourseRequest;
-import Web.EnglishCenter.entity.exam.Exam;
-import Web.EnglishCenter.entity.exam.UsersExamScores;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 //@MappedSuperclass
 @Entity(name = "Users")

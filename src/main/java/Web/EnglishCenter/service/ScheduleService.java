@@ -1,7 +1,7 @@
 package Web.EnglishCenter.service;
 
 
-import Web.EnglishCenter.entity.Schedule;
+import Web.EnglishCenter.entity.schedule.Schedule;
 
 import java.util.List;
 

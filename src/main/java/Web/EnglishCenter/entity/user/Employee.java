@@ -1,18 +1,8 @@
 package Web.EnglishCenter.entity.user;
 
-import Web.EnglishCenter.entity.Classroom;
-import Web.EnglishCenter.entity.Document;
-import Web.EnglishCenter.entity.Notification;
-import Web.EnglishCenter.entity.Post;
-import Web.EnglishCenter.entity.course.UsersCourseRequest;
-import Web.EnglishCenter.entity.exam.Exam;
-import Web.EnglishCenter.entity.exam.UsersExamScores;
 import lombok.*;
-
 import javax.persistence.Entity;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Getter

@@ -1,6 +1,5 @@
 package Web.EnglishCenter.service.impl;
 
-import Web.EnglishCenter.entity.Classroom;
 import Web.EnglishCenter.entity.Notification;
 import Web.EnglishCenter.repo.NotificationRepo;
 import Web.EnglishCenter.service.NotificationService;

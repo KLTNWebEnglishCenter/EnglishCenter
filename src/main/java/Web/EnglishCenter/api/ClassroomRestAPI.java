@@ -1,15 +1,15 @@
 package Web.EnglishCenter.api;
 
-import Web.EnglishCenter.entity.Classroom;
-import Web.EnglishCenter.entity.Schedule;
+import Web.EnglishCenter.entity.course.UsersCourseRequestKey;
+import Web.EnglishCenter.entity.schedule.Classroom;
+import Web.EnglishCenter.entity.schedule.ClassroomSchedule;
+import Web.EnglishCenter.entity.schedule.ClassroomScheduleKey;
+import Web.EnglishCenter.entity.schedule.Schedule;
 import Web.EnglishCenter.entity.course.Course;
 import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entityDTO.ClassroomDTO;
-import Web.EnglishCenter.service.ClassroomService;
-import Web.EnglishCenter.service.CourseService;
-import Web.EnglishCenter.service.ScheduleService;
-import Web.EnglishCenter.service.UsersService;
+import Web.EnglishCenter.service.*;
 import Web.EnglishCenter.utils.ConvertDTOHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -39,6 +38,9 @@ public class ClassroomRestAPI {
     private ScheduleService scheduleService;
 
     private ConvertDTOHelper convertDTOHelper=new ConvertDTOHelper();
+
+    @Autowired
+    private ClassroomScheduleService classroomScheduleService;
 
     @GetMapping("/classrooms")
     public ResponseEntity<List<ClassroomDTO>> getAll(){
@@ -64,13 +66,23 @@ public class ClassroomRestAPI {
     }
 
 
-
+    /**
+     * Uncomplete => change classroom and schedule construction => can meet error
+     * @param schedule_id
+     * @return
+     */
     @PostMapping("/classroom/addschedule")
     public  ResponseEntity<Classroom> postTestAddScheduleToClass(Integer schedule_id){
         log.info(schedule_id+"");
         Schedule schedule=scheduleService.findById(schedule_id);
         Classroom classroom=classroomService.findById(1);
-        classroom.addSchedule(schedule);
+
+        ClassroomSchedule classroomSchedule=new ClassroomSchedule();
+        classroomSchedule.setClassroom(classroom);
+        classroomSchedule.setSchedule(schedule);
+        classroomSchedule.setClassroomScheduleKey(new ClassroomScheduleKey(classroom.getId(),schedule.getId()));
+
+        classroom.addSchedule(classroomSchedule);
         return ResponseEntity.ok().body(classroomService.save(classroom));
     }
 

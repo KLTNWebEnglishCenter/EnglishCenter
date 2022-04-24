@@ -1,17 +1,10 @@
 package Web.EnglishCenter.entityDTO;
 
-import Web.EnglishCenter.entity.Classroom;
 import Web.EnglishCenter.entity.course.Category;
 import Web.EnglishCenter.entity.course.Level;
-import Web.EnglishCenter.entity.course.UsersCourseRequest;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.sun.istack.NotNull;
 import lombok.*;
 
-import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter

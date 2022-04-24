@@ -1,20 +1,24 @@
 package Web.EnglishCenter.api;
 
-import Web.EnglishCenter.entity.Classroom;
+import Web.EnglishCenter.entity.schedule.Classroom;
 import Web.EnglishCenter.entity.course.Course;
+import Web.EnglishCenter.entity.schedule.Schedule;
 import Web.EnglishCenter.entity.user.Authentication;
 import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entityDTO.ClassroomDTO;
-import Web.EnglishCenter.service.AuthenticationService;
-import Web.EnglishCenter.service.ClassroomService;
-import Web.EnglishCenter.service.CourseService;
-import Web.EnglishCenter.service.UsersService;
+import Web.EnglishCenter.entityDTO.ScheduleInfoHolder;
+import Web.EnglishCenter.service.*;
+import Web.EnglishCenter.utils.JwtHelper;
 import Web.EnglishCenter.utils.RoleType;
+import Web.EnglishCenter.utils.UsersType;
+import Web.EnglishCenter.utils.ScheduleHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +29,12 @@ public class TeacherRestAPI {
 
     @Autowired
     private UsersService usersService;
+
     @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    private JwtHelper jwtHelper;
 
     /**
      * get list of all teacher
@@ -97,5 +105,4 @@ public class TeacherRestAPI {
 
         return ResponseEntity.ok().body(classroomDTOS);
     }
-
 }

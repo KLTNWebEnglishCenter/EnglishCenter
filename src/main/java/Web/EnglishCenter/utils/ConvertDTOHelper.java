@@ -1,6 +1,6 @@
 package Web.EnglishCenter.utils;
 
-import Web.EnglishCenter.entity.Classroom;
+import Web.EnglishCenter.entity.schedule.Classroom;
 import Web.EnglishCenter.entity.Notification;
 import Web.EnglishCenter.entity.course.Category;
 import Web.EnglishCenter.entity.course.Course;

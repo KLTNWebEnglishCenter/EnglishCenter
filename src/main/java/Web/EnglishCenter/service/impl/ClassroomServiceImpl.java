@@ -1,8 +1,6 @@
 package Web.EnglishCenter.service.impl;
 
-import Web.EnglishCenter.entity.Classroom;
-import Web.EnglishCenter.entity.course.Course;
-import Web.EnglishCenter.entity.user.Teacher;
+import Web.EnglishCenter.entity.schedule.Classroom;
 import Web.EnglishCenter.repo.ClassroomRepo;
 import Web.EnglishCenter.repo.CourseRepo;
 import Web.EnglishCenter.repo.UsersRepo;
@@ -12,9 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
