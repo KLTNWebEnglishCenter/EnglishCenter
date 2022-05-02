@@ -1,16 +1,14 @@
 package Web.EnglishCenter.entity.course;
 
-import Web.EnglishCenter.entity.Classroom;
+import Web.EnglishCenter.entity.schedule.Classroom;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 @Entity(name = "Course")
 @Getter

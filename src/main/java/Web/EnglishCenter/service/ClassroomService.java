@@ -1,6 +1,6 @@
 package Web.EnglishCenter.service;
 
-import Web.EnglishCenter.entity.Classroom;
+import Web.EnglishCenter.entity.schedule.Classroom;
 
 import java.util.List;
 

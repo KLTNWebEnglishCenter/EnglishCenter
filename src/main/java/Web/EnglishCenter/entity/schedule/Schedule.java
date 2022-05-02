@@ -1,6 +1,5 @@
-package Web.EnglishCenter.entity;
+package Web.EnglishCenter.entity.schedule;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -32,8 +31,12 @@ public class Schedule {
     private String lesson;
 
 //    @JsonManagedReference(value = "classrooms_schedules")
-    @ManyToMany(mappedBy = "schedules",fetch = FetchType.LAZY)
-    private List<Classroom> classrooms;
+//    @ManyToMany(mappedBy = "schedules",fetch = FetchType.LAZY)
+//    private List<Classroom> classrooms;
+
+    @JsonManagedReference(value = "schedule_classroom")
+    @OneToMany(mappedBy = "schedule")
+    private List<ClassroomSchedule> classroomSchedules;
 
     public Schedule( String dayOfWeek, String lesson) {
         this.dayOfWeek = dayOfWeek;

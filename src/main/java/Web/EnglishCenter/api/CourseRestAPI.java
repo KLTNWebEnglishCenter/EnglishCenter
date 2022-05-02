@@ -1,13 +1,8 @@
 package Web.EnglishCenter.api;
 
-import Web.EnglishCenter.entity.Classroom;
 import Web.EnglishCenter.entity.course.Category;
 import Web.EnglishCenter.entity.course.Course;
 import Web.EnglishCenter.entity.course.Level;
-import Web.EnglishCenter.entity.course.UsersCourseRequest;
-import Web.EnglishCenter.entity.user.Student;
-import Web.EnglishCenter.entity.user.Teacher;
-import Web.EnglishCenter.entity.user.Users;
 import Web.EnglishCenter.entityDTO.CourseDTO;
 import Web.EnglishCenter.service.CategoryService;
 import Web.EnglishCenter.service.CourseService;

@@ -1,11 +1,8 @@
 package Web.EnglishCenter.api;
 
-import Web.EnglishCenter.entity.Classroom;
 import Web.EnglishCenter.entity.Notification;
 import Web.EnglishCenter.entity.user.Teacher;
-import Web.EnglishCenter.entity.user.Users;
 import Web.EnglishCenter.entityDTO.NotificationDTO;
-import Web.EnglishCenter.repo.UsersRepo;
 import Web.EnglishCenter.service.ClassroomService;
 import Web.EnglishCenter.service.NotificationService;
 import Web.EnglishCenter.service.UsersService;
@@ -18,11 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
 @RestController
 @RequestMapping("/")

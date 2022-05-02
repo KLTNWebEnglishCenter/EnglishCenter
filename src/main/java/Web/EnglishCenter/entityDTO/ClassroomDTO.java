@@ -1,18 +1,12 @@
 package Web.EnglishCenter.entityDTO;
 
-import Web.EnglishCenter.entity.Notification;
-import Web.EnglishCenter.entity.Schedule;
+import Web.EnglishCenter.entity.schedule.Schedule;
 import Web.EnglishCenter.entity.course.Course;
 import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Teacher;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
-import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 

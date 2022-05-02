@@ -2,6 +2,7 @@ package Web.EnglishCenter.entity.course;
 
 import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Users;
+import Web.EnglishCenter.utils.UserRequestStatus;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
@@ -38,6 +39,6 @@ public class UsersCourseRequest {
         this.userRequestCourseKey = userRequestCourseKey;
         this.student = student;
         this.course = course;
-        this.status="requesting";
+        this.status= UserRequestStatus.REQUESTING;
     }
 }

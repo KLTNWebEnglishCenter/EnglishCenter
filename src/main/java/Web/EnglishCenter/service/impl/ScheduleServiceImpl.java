@@ -1,6 +1,6 @@
 package Web.EnglishCenter.service.impl;
 
-import Web.EnglishCenter.entity.Schedule;
+import Web.EnglishCenter.entity.schedule.Schedule;
 import Web.EnglishCenter.repo.ScheduleRepo;
 import Web.EnglishCenter.service.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;

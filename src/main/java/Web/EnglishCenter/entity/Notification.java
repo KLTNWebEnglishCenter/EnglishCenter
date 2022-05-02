@@ -1,17 +1,15 @@
 package Web.EnglishCenter.entity;
 
 
+import Web.EnglishCenter.entity.schedule.Classroom;
 import Web.EnglishCenter.entity.user.Teacher;
-import Web.EnglishCenter.entity.user.Users;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity(name = "Notification")
 @Getter

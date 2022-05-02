@@ -1,9 +1,10 @@
-package Web.EnglishCenter.entity;
+package Web.EnglishCenter.entity.schedule;
 
+import Web.EnglishCenter.entity.Notification;
 import Web.EnglishCenter.entity.course.Course;
+import Web.EnglishCenter.entity.schedule.Schedule;
 import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Teacher;
-import Web.EnglishCenter.entity.user.Users;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -68,13 +69,17 @@ public class Classroom implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     private List<Student> students;
 
-    @JsonBackReference(value = "classrooms_schedules")
-    @ManyToMany
-    @JoinTable(
-            name = "Classroom_Schedule",
-            joinColumns = @JoinColumn(name = "classroom_id"),
-            inverseJoinColumns = @JoinColumn(name = "schedule_id"))
-    private List<Schedule> schedules;
+//    @JsonBackReference(value = "classrooms_schedules")
+//    @ManyToMany
+//    @JoinTable(
+//            name = "Classroom_Schedule",
+//            joinColumns = @JoinColumn(name = "classroom_id"),
+//            inverseJoinColumns = @JoinColumn(name = "schedule_id"))
+//    private List<Schedule> schedules;
+
+    @JsonManagedReference(value = "classroom_schedule")
+    @OneToMany(mappedBy = "classroom")
+    private List<ClassroomSchedule> classroomSchedules;
 
     @JsonManagedReference(value = "classroom_notifications")
     @OneToMany(mappedBy = "classroom",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
@@ -83,22 +88,13 @@ public class Classroom implements Serializable {
     public Classroom( LocalDate startDate,  LocalDate endDate, Teacher teacher,  Course course) {
         this.startDate = startDate;
         this.endDate = endDate;
-//        this.createDate = LocalDate.now();
         this.teacher = teacher;
         this.course = course;
-    }
-    public Classroom(LocalDate startDate, LocalDate endDate,  Teacher teacher,  Course course,List<Schedule> schedules) {
-        this.startDate = startDate;
-        this.endDate = endDate;
-//        this.createDate = LocalDate.now();
-        this.teacher = teacher;
-        this.course = course;
-        this.schedules=schedules;
     }
 
-    public void addSchedule(Schedule schedule){
-        if(schedules==null)schedules=new ArrayList<>();
-        else schedules.add(schedule);
+    public void addSchedule(ClassroomSchedule classroomSchedule){
+        if(classroomSchedules==null)classroomSchedules=new ArrayList<>();
+        else classroomSchedules.add(classroomSchedule);
     }
 
     public Classroom(int id, LocalDate startDate, LocalDate endDate, String status, String classname, int maxMember, LocalDate createDate, LocalDate modifiedDate) {
@@ -127,7 +123,7 @@ public class Classroom implements Serializable {
                 ", teacher=" + teacher +
                 ", course=" + course +
                 ", students=" + students +
-                ", schedules=" + schedules +
+                ", schedules=" + classroomSchedules +
                 ", notifications=" + notifications +
                 '}';
     }
