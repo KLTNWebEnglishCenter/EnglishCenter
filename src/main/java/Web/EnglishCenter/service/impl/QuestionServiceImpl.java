@@ -36,4 +36,9 @@ public class QuestionServiceImpl implements QuestionService {
     public Question findById(int id) {
         return questionRepo.findById(id).get();
     }
+
+    @Override
+    public Question update(Question question) {
+        return questionRepo.saveAndFlush(question);
+    }
 }

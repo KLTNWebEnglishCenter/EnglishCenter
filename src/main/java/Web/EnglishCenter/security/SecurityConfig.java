@@ -40,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers("/api/login/**", "/level/**", "/course/**", "/teacher/**",
-                "/teachers/**", "/user/**", "/users/**", "/exam/**", "/register/**", "/auth/**", "/auths/**",
+                "/teachers/**", "/user/**", "/users/**", "/exam/**","/question/**", "/register/**", "/auth/**", "/auths/**",
                 "/students/**","/student/**","/employees/**","/employee/**","/notifications/**","/notification/**",
                 "/classrooms/**","/classroom/**","/schedules/**","/schedule/**","/category/**","/categories/**","/posts/**","/post/**").permitAll();
 //        http.authorizeRequests().antMatchers(GET, "/user/**").hasAnyAuthority("ROLE_GIAOVIEN");

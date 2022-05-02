@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -157,6 +156,17 @@ public class ClassroomRestAPI {
             });
         }
         return ResponseEntity.ok().body(classroomDTOS);
+    }
+
+    @GetMapping("/classrooms/students/{id}")
+    public Object getListCourse(@PathVariable int id){
+        List<Student> students = new ArrayList<>();
+        try {
+            students.addAll(classroomService.findById(id).getStudents());
+        }catch (Exception e){
+            return new ArrayList<Student>();
+        }
+        return ResponseEntity.ok().body(students);
     }
 
 }

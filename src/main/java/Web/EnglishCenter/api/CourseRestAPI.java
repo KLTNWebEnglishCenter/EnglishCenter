@@ -69,6 +69,11 @@ public class CourseRestAPI {
         return ResponseEntity.ok().body(courseService.findById(id));
     }
 
+    @GetMapping("/course/find/{id}")
+    public ResponseEntity<CourseDTO> getCourseDTO(@PathVariable int id){
+        return ResponseEntity.ok().body(convertDTOHelper.convertCourse(courseService.findById(id)));
+    }
+
     @GetMapping("/course/delete/{id}")
     public ResponseEntity<Course> deleteCourse(@PathVariable int id){
         Course course = courseService.findById(id);

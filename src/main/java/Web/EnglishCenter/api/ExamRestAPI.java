@@ -5,6 +5,7 @@ import Web.EnglishCenter.entity.exam.Question;
 import Web.EnglishCenter.entity.exam.UsersExamScores;
 import Web.EnglishCenter.entity.exam.UsersExamScoresKey;
 import Web.EnglishCenter.entity.user.Student;
+import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entity.user.Users;
 import Web.EnglishCenter.entityDTO.ExamDTO;
 import Web.EnglishCenter.entityDTO.QuestionDTO;
@@ -49,27 +50,31 @@ public class ExamRestAPI {
         return ResponseEntity.ok().body(convertDTOHelper.trimExam(examService.findById(id)));
     }
 
-    @PostMapping("/exam/save")
-    public ResponseEntity<Exam> save(@RequestBody ExamDTO examDTO){
-//        ExamDTO examDTO = convertDTOHelper.trimExam(examService.save(exam));
-
-        List<QuestionDTO> questionDTOS = examDTO.getQuestionDTOS();
-        List<Question> questions = new ArrayList<>();
-
-        questionDTOS.forEach(questionDTO -> {
-            Question question = new Question();
-//            question.setId(questionDTO.getId());
-            question.setAnswerA(questionDTO.getAnswerA());
-            question.setAnswerB(questionDTO.getAnswerB());
-            question.setAnswerC(questionDTO.getAnswerC());
-            question.setAnswerD(questionDTO.getAnswerD());
-            question.setContent(questionDTO.getContent());
-            question.setCorrectAnswer(questionDTO.getCorrectAnswer());
-            questions.add(question);
-        });
-        Exam exam = new Exam(examDTO.getName(),examDTO.getDescription(),examDTO.getStatus(),null,questions);
-        exam.setTeacher(examDTO.getTeacher());
+    @PostMapping("/exam/save/{teacherId}")
+    public ResponseEntity<Exam> save(@RequestBody ExamDTO examDTO, @PathVariable int teacherId){
+        Exam exam = new Exam(examDTO.getName(),examDTO.getDescription(),examDTO.getStatus(),null,null);
+        Teacher teacher = usersService.findTeacher(teacherId);
+        exam.setTeacher(teacher);
         return ResponseEntity.ok().body(examService.save(exam));
+    }
+
+    @GetMapping("/exam/questions/{id}")
+    public ResponseEntity<List<QuestionDTO>> getQuestionByExam(@PathVariable int id){
+        Exam exam = examService.findById(id);
+        List<QuestionDTO> questions = convertDTOHelper.convertListQuestion(exam.getQuestions());
+        return ResponseEntity.ok().body(questions);
+    }
+
+    @GetMapping("/exam/{examId}/addQuestion/{questionId}")
+    public ResponseEntity<ExamDTO> addQuestionToExam(@PathVariable int examId, @PathVariable int questionId){
+        Exam exam = examService.findById(examId);
+        List<Question> questions = exam.getQuestions();
+        Question question = questionService.findById(questionId);
+        if(!questions.contains(question)){
+            questions.add(question);
+        }
+        exam.setQuestions(questions);
+        return ResponseEntity.ok().body(convertDTOHelper.trimExam(examService.update(exam)));
     }
 
 //    @GetMapping("/exam/save/test")
