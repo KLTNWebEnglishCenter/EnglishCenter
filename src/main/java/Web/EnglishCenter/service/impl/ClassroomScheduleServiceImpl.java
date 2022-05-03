@@ -1,10 +1,12 @@
 package Web.EnglishCenter.service.impl;
 
 import Web.EnglishCenter.entity.schedule.ClassroomSchedule;
+import Web.EnglishCenter.entity.schedule.ClassroomScheduleKey;
 import Web.EnglishCenter.repo.ClassroomScheduleRepo;
 import Web.EnglishCenter.service.ClassroomScheduleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -39,6 +41,17 @@ public class ClassroomScheduleServiceImpl implements ClassroomScheduleService {
         return classroomScheduleRepo.findById(id).get();
     }
 
+    @Override
+    public List<ClassroomSchedule> findByKey(ClassroomScheduleKey key) {
+        ClassroomSchedule classroomSchedule = new ClassroomSchedule();
+        classroomSchedule.setClassroomScheduleKey(key);
+        return classroomScheduleRepo.findAll(Example.of(classroomSchedule));
+    }
+
+    @Override
+    public List<ClassroomSchedule> findByClassroomId(int classroomId) {
+        return classroomScheduleRepo.getListClassroomSchedules(classroomId);
+    }
 
     /**
      * @author VQKHANH

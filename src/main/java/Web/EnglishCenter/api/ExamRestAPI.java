@@ -50,10 +50,15 @@ public class ExamRestAPI {
         return ResponseEntity.ok().body(convertDTOHelper.trimExam(examService.findById(id)));
     }
 
+    @GetMapping("/exam/test/{id}")
+    public ResponseEntity<Exam> getById2(@PathVariable int id){
+        return ResponseEntity.ok().body(examService.findById(id));
+    }
+
     @PostMapping("/exam/save/{teacherId}")
     public ResponseEntity<Exam> save(@RequestBody ExamDTO examDTO, @PathVariable int teacherId){
         Exam exam = new Exam(examDTO.getName(),examDTO.getDescription(),examDTO.getStatus(),null,null);
-        Teacher teacher = usersService.findTeacher(teacherId);
+        Teacher teacher = (Teacher) usersService.findById(teacherId);
         exam.setTeacher(teacher);
         return ResponseEntity.ok().body(examService.save(exam));
     }

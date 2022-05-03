@@ -29,4 +29,8 @@ public interface ClassroomScheduleRepo extends JpaRepository<ClassroomSchedule,I
             "join users u on c.teacher_id=u.id\n" +
             "where uc.student_id=:studentId and (:currentDate between c.start_date and c.end_date ) and s.day_of_week=:dayOfWeek",nativeQuery = true)
     List<String> getScheduleOfStudent(int studentId, LocalDate currentDate,String dayOfWeek);
+
+
+    @Query(value = "select * from classroom_schedule where classroom_id =:classroomId",nativeQuery = true)
+    List<ClassroomSchedule> getListClassroomSchedules(int classroomId);
 }
