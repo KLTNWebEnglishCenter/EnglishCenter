@@ -1,5 +1,6 @@
 package Web.EnglishCenter.entityDTO;
 
+import Web.EnglishCenter.entity.Notification;
 import Web.EnglishCenter.entity.schedule.Schedule;
 import Web.EnglishCenter.entity.course.Course;
 import Web.EnglishCenter.entity.user.Student;
@@ -28,7 +29,7 @@ public class ClassroomDTO {
 
     private Teacher teacher;
     private Course course;
-
+    private List<Notification> notifications;
     private List<Student> students;
 
     public ClassroomDTO(LocalDate startDate, LocalDate endDate, Teacher teacher, Course course) {

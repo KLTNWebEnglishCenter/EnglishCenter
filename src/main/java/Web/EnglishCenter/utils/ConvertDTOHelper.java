@@ -42,6 +42,7 @@ public class ConvertDTOHelper {
      */
     public NotificationDTO convertNotification(Notification notification) {
         ClassroomDTO classroom = convertClassroom(notification.getClassroom());
+//        classroom.setTeacher(null);
         NotificationDTO notificationDTO = new NotificationDTO(notification.getId(), notification.getTitle(), notification.getContent(), notification.getCreateDate(), notification.getModifiedDate(), trimTeacher(notification.getTeacher()), classroom);
         return notificationDTO;
     }
@@ -262,5 +263,20 @@ public class ConvertDTOHelper {
         return examDTO;
     }
 
-
+    /**
+     * for manage classroom of student
+     * @author VQKHANH
+     * @param classroom
+     * @return
+     */
+    public ClassroomDTO convertClassroomContainNotificationsTeacherAndCourse(Classroom classroom) {
+        ClassroomDTO convert_classroom = new ClassroomDTO(classroom.getId(), classroom.getStartDate(), classroom.getEndDate(), classroom.getStatus(), classroom.getClassname(), classroom.getMaxMember(), classroom.getCreateDate(), classroom.getModifiedDate());
+        convert_classroom.setTeacher(trimTeacher(classroom.getTeacher()));
+        convert_classroom.setNotifications(classroom.getNotifications());
+        convert_classroom.setStudents(null);
+        Course course=classroom.getCourse();
+        course.setUserRequestCourses(null);
+        convert_classroom.setCourse(course);
+        return convert_classroom;
+    }
 }
