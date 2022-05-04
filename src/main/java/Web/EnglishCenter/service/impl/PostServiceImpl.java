@@ -43,6 +43,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<Post> findAllPostWithStatusHasAccept() {
+        return postRepo.getListPostHasAccept();
+    }
+
+    @Override
     public List<Post> findMyPost(int id) {
         return postRepo.getMyPost(id);
     }

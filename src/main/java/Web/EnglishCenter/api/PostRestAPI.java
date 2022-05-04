@@ -58,6 +58,11 @@ public class PostRestAPI {
         return ResponseEntity.ok().body(postService.findAllPostWithStatusNoAccept());
     }
 
+    @GetMapping("/post/status/has/accept")
+    public ResponseEntity<List<Post>> getAllPostWithStatusHasAccept(){
+        return ResponseEntity.ok().body(postService.findAllPostWithStatusHasAccept());
+    }
+
     @GetMapping("/post/my/{id}")
     public ResponseEntity<List<Post>> getMyPost(@PathVariable int id){
         return ResponseEntity.ok().body(postService.findMyPost(id));

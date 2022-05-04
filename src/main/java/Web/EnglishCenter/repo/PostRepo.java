@@ -13,6 +13,9 @@ public interface PostRepo extends JpaRepository<Post,Integer> {
     @Query(value = "select * from post where status = 'yetAccept'",nativeQuery = true)
     List<Post> getListPostHasNotAccept();
 
+    @Query(value = "select * from post where status = 'hasAccept'",nativeQuery = true)
+    List<Post> getListPostHasAccept();
+
     @Query(value = "select * from post where users_id =:id",nativeQuery = true)
     List<Post> getMyPost(int id);
 
