@@ -11,11 +11,14 @@ import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entityDTO.ClassroomDTO;
 import Web.EnglishCenter.service.*;
 import Web.EnglishCenter.utils.ConvertDTOHelper;
+import Web.EnglishCenter.utils.JwtHelper;
+import Web.EnglishCenter.utils.UsersType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +44,9 @@ public class ClassroomRestAPI {
 
     @Autowired
     private ClassroomScheduleService classroomScheduleService;
+
+    @Autowired
+    private JwtHelper jwtHelper;
 
     @GetMapping("/classrooms")
     public ResponseEntity<List<ClassroomDTO>> getAll(){
