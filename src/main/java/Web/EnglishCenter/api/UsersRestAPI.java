@@ -75,7 +75,7 @@ public class UsersRestAPI {
         users1.setDob(users.getDob());
         users1.setGender(users.getGender());
         users1.setPhoneNumber(users.getPhoneNumber());
-        return ResponseEntity.ok().body(usersService.save(users1));
+        return ResponseEntity.ok().body(usersService.update(users1));
     }
 
 //    @GetMapping("/user/save")
@@ -125,5 +125,14 @@ public class UsersRestAPI {
         }
         return ResponseEntity.ok().body(users);
     };
+
+    @PostMapping("/user/change/password")
+    public ResponseEntity<String> updatePassword(@RequestParam String id,@RequestParam String oldPass,@RequestParam String newPass){
+        Users users = usersService.updatePassword(Integer.parseInt(id),oldPass,newPass);
+        if (users != null){
+            return ResponseEntity.ok().body("true");
+        }
+        return ResponseEntity.ok().body("false");
+    }
 
 }

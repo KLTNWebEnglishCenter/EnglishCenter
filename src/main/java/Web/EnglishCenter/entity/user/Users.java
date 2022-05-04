@@ -35,9 +35,9 @@ public class Users implements Serializable {
 	@Column(columnDefinition = "nvarchar(255)")
 	private String gender;
 
-	@Column(columnDefinition = "varchar(255)",unique = true, nullable = false)
+	@Column(columnDefinition = "varchar(255)",unique = true)
 	private String email;
-	@Column(columnDefinition = "nvarchar(10)",unique = true, nullable = false)
+	@Column(columnDefinition = "nvarchar(10)",unique = true)
 	private String phoneNumber;
 	@Column(columnDefinition = "true")
 	private boolean enable;

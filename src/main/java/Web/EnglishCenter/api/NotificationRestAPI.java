@@ -52,7 +52,7 @@ public class NotificationRestAPI {
         //convert notification list to notificationdto list
         List<NotificationDTO> notificationDTOS=new ArrayList<>();
         if(notifications.size()>0){
-            notificationDTOS=convertDTOHelper.convertListNotification(notifications);
+            notificationDTOS.addAll(convertDTOHelper.convertListNotification(notifications));
         }
 //        List<NotificationDTO> notificationDTOS=convertDTOHelper.convertListNotification(notifications);
         return ResponseEntity.ok().body(notificationDTOS);

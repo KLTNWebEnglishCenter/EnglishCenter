@@ -15,6 +15,8 @@ public interface UsersService {
     public void delete(Users users);
     public List<Users> findAll();
     public Users findById(int id);
+    public Users update(Users users);
+    public Users updatePassword(int id,String oldPass, String newPass);
 //==========================================================END===================================================================
 
 

@@ -46,6 +46,11 @@ public class ScheduleRestAPI {
         return ResponseEntity.ok().body(scheduleService.save(schedule));
     }
 
+    @GetMapping("/schedule/{id}")
+    public ResponseEntity<Schedule> getById(@PathVariable int id){
+        return ResponseEntity.ok().body(scheduleService.findById(id));
+    }
+
 
     /**
      * format="yyyy-MM-dd"

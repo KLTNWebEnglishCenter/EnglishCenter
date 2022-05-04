@@ -41,4 +41,9 @@ public class ExamServiceImpl implements ExamService {
     public Exam findById(int id) {
         return examRepo.findById(id).get();
     }
+
+    @Override
+    public Exam update(Exam exam) {
+        return examRepo.saveAndFlush(exam);
+    }
 }

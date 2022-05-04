@@ -10,4 +10,5 @@ public interface ExamService {
     public void delete(Exam exam);
     public List<Exam> findAll();
     public Exam findById(int id);
+    public Exam update(Exam exam);
 }
