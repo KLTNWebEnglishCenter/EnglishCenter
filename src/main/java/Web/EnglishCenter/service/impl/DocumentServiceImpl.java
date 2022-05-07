@@ -35,4 +35,19 @@ public class DocumentServiceImpl implements DocumentService {
     public Document findById(int id) {
         return documentRepo.findById(id).get();
     }
+
+    @Override
+    public List<Document> findByTeacherId(int teacherId) {
+        return documentRepo.findByTeacherId(teacherId);
+    }
+
+    @Override
+    public Document findByIdOfSpecifyTeacher(int id, int teacherId) {
+        return documentRepo.findByIdOfSpecifyTeacher(id,teacherId);
+    }
+
+    @Override
+    public List<Document> findByName(String name,int teacherId) {
+        return documentRepo.findByName(name,teacherId);
+    }
 }

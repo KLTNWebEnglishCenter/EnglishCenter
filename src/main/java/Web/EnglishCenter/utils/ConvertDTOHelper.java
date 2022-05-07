@@ -1,5 +1,6 @@
 package Web.EnglishCenter.utils;
 
+import Web.EnglishCenter.entity.Document;
 import Web.EnglishCenter.entity.schedule.Classroom;
 import Web.EnglishCenter.entity.Notification;
 import Web.EnglishCenter.entity.course.Category;
@@ -13,6 +14,7 @@ import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entity.user.Users;
 import Web.EnglishCenter.entityDTO.*;
 
+import javax.print.Doc;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -278,5 +280,18 @@ public class ConvertDTOHelper {
         course.setUserRequestCourses(null);
         convert_classroom.setCourse(course);
         return convert_classroom;
+    }
+
+    public Document trimDocument(Document document){
+        Document trim_doc=new Document(document.getId(), document.getName(), document.getDescription(), document.getLink(), trimTeacher(document.getTeacher()));
+        return trim_doc;
+    }
+
+    public List<Document> trimListDocument(List<Document> documents){
+        List<Document> trimList=new ArrayList<>();
+        for (Document document:documents) {
+            trimList.add(trimDocument(document));
+        }
+        return trimList;
     }
 }
