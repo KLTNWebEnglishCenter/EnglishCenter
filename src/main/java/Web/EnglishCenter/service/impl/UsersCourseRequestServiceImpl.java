@@ -48,4 +48,9 @@ public class UsersCourseRequestServiceImpl implements UsersCourseRequestService 
     public UsersCourseRequest findByCourseIdAndStudentId(int courseId, int studentId) {
         return usersCourseRequestRepo.findByCourseIdAndStudentId(courseId,studentId);
     }
+
+    @Override
+    public List<UsersCourseRequest> findByStudentId(int studentId) {
+        return usersCourseRequestRepo.findByStudentId(studentId);
+    }
 }
