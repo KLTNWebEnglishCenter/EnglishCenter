@@ -36,8 +36,15 @@ public class Document {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    public Document(@NonNull String name, String link) {
+    public Document(String name, String link) {
         this.name = name;
         this.link = link;
+    }
+
+    public Document(String name, String description, String link, Teacher teacher) {
+        this.name = name;
+        this.description = description;
+        this.link = link;
+        this.teacher = teacher;
     }
 }
