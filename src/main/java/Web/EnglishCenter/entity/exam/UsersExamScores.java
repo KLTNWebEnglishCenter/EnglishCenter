@@ -14,6 +14,7 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class UsersExamScores {
 
     @EmbeddedId

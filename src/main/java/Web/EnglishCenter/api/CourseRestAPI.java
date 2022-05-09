@@ -100,6 +100,11 @@ public class CourseRestAPI {
         return ResponseEntity.ok().body(courseDTOS);
     };
 
+    @GetMapping("/course/find/category/{categoryId}")
+    public ResponseEntity<List<Course>> findByCategory(@PathVariable int categoryId){
+        return ResponseEntity.ok().body(courseService.findByCategory(categoryId));
+    }
+
 //    @GetMapping("/course/request/{courseId}")
 //    public ResponseEntity<List<Student>> findStudentRequestJoinCourseByCourseId(@PathVariable int courseId){
 //        List<UsersCourseRequest> usersCourseRequests=usersCourseRequestService.findByCourseId(courseId);

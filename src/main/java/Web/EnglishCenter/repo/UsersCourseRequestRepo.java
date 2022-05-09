@@ -50,4 +50,7 @@ public interface UsersCourseRequestRepo extends JpaRepository<UsersCourseRequest
 
     @Query(value = "select * from users_course_request where course_id=:courseId and student_id=:studentId", nativeQuery = true)
     UsersCourseRequest findByCourseIdAndStudentId(int courseId,int studentId);
+
+    @Query(value = "select * from users_course_request where student_id=:studentId", nativeQuery = true)
+    List<UsersCourseRequest> findByStudentId(int studentId);
 }

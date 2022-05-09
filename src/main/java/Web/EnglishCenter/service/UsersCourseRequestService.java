@@ -27,5 +27,5 @@ public interface UsersCourseRequestService {
     public List<UsersCourseRequest> findByCourseId(int courseId);
     public  UsersCourseRequest findByCourseIdAndStudentId(int courseId,int studentId);
 
-
+    public List<UsersCourseRequest> findByStudentId(int studentId);
 }

@@ -30,4 +30,14 @@ public class UsersExamScoresServiceImpl implements UsersExamScoresService {
     public List<UsersExamScores> findAll() {
         return usersExamScoresRepo.findAll();
     }
+
+    @Override
+    public List<UsersExamScores> findByStudent(int studentId) {
+        return usersExamScoresRepo.getScoreByStudent(studentId);
+    }
+
+    @Override
+    public UsersExamScores getScoreOfStudentByExam(int studentId, int examId) {
+        return usersExamScoresRepo.getScoreByStudentAndExam(studentId,examId);
+    }
 }

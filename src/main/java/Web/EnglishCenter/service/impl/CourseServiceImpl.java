@@ -80,4 +80,9 @@ public class CourseServiceImpl implements CourseService {
         }
         return courses;
     }
+
+    @Override
+    public List<Course> findByCategory(int categoryId) {
+        return courseRepo.findByCategory(categoryId);
+    }
 }

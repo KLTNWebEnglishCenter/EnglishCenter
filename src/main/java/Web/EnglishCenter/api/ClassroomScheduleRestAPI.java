@@ -99,16 +99,15 @@ public class ClassroomScheduleRestAPI {
     @PostMapping("/classroom/schedule/day")
     public ResponseEntity<List<ScheduleInfoHolder>> getclassroomScheduleOnDay(@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate selectedDate, @RequestParam String classroomId){
         String dayOfWeek = utils.getDayOfWeekOfSpecifyDate(selectedDate);
-        log.info(dayOfWeek);
         int id = Integer.parseInt(classroomId);
         List<ScheduleInfoHolder> holders = new ArrayList<>();
         List<ClassroomSchedule> scheduleList = classroomScheduleService.findByClassroomId(id);
         Classroom classroom = classroomService.findById(id);
         Teacher teacher = usersService.findTeacherByClassroomId(id);
         scheduleList.forEach(classroomSchedule -> {
-            log.info("======="+classroomSchedule.getSchedule().getDayOfWeek());
             if (classroomSchedule.getSchedule().getDayOfWeek().equals(dayOfWeek)){
                 ScheduleInfoHolder scheduleInfoHolder = new ScheduleInfoHolder();
+                scheduleInfoHolder.setScheduleId(classroomSchedule.getSchedule().getId());
                 scheduleInfoHolder.setClassname(classroom.getClassname());
                 scheduleInfoHolder.setDayOfWeek(classroomSchedule.getSchedule().getDayOfWeek());
                 scheduleInfoHolder.setMeetingInfo(classroomSchedule.getMeetingInfo());
@@ -121,5 +120,17 @@ public class ClassroomScheduleRestAPI {
         });
 
         return ResponseEntity.ok().body(holders);
+    }
+
+    @GetMapping("/classroom/schedule/delete/{classroomId}/{scheduleId}")
+    public ResponseEntity<String> deleteClassroomSchedule(@PathVariable int classroomId,@PathVariable int scheduleId){
+        try {
+            ClassroomScheduleKey key = new ClassroomScheduleKey(classroomId,scheduleId);
+            List<ClassroomSchedule> scheduleList =  classroomScheduleService.findByKey(key);
+            classroomScheduleService.delete(scheduleList.get(0));
+            return ResponseEntity.ok().body("DeleteAccess");
+        }catch (Exception e){
+            return ResponseEntity.ok().body("DeleteFail");
+        }
     }
 }

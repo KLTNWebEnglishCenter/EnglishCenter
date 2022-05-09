@@ -1,7 +1,10 @@
 package Web.EnglishCenter.api;
 
 import Web.EnglishCenter.entity.Notification;
+import Web.EnglishCenter.entity.course.Course;
 import Web.EnglishCenter.entity.course.UsersCourseRequest;
+import Web.EnglishCenter.entity.exam.Exam;
+import Web.EnglishCenter.entity.exam.UsersExamScores;
 import Web.EnglishCenter.entity.schedule.Classroom;
 import Web.EnglishCenter.entity.user.Authentication;
 import Web.EnglishCenter.entity.user.Student;
@@ -13,6 +16,7 @@ import Web.EnglishCenter.service.AuthenticationService;
 import Web.EnglishCenter.service.ClassroomService;
 import Web.EnglishCenter.service.UsersCourseRequestService;
 import Web.EnglishCenter.service.UsersService;
+import Web.EnglishCenter.service.*;
 import Web.EnglishCenter.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +44,12 @@ public class StudentRestAPI {
 
     @Autowired
     private UsersCourseRequestService usersCourseRequestService;
+
+    @Autowired
+    private UsersExamScoresService usersExamScoresService;
+
+    @Autowired
+    private ExamService examService;
 
     @Autowired
     private JwtHelper jwtHelper;
@@ -103,6 +113,13 @@ public class StudentRestAPI {
                 students.add(usersCourseRequest.getStudent());
             }
         return ResponseEntity.ok().body(students);
+    }
+
+
+    @GetMapping("/student/list/course/{studentId}")
+    public ResponseEntity<List<UsersCourseRequest>> findCourseRequestByCourseId(@PathVariable int studentId){
+        List<UsersCourseRequest> usersCourseRequests = usersCourseRequestService.findByStudentId(studentId);
+        return ResponseEntity.ok().body(usersCourseRequests);
     }
 
     /**
@@ -177,5 +194,31 @@ public class StudentRestAPI {
         }
         return ResponseEntity.ok().body(notificationDTOS);
     }
+
+    @GetMapping("/student/score/all")
+    public ResponseEntity<List<UsersExamScores>> getScoreOfAllStudent(){
+        return ResponseEntity.ok().body(usersExamScoresService.findAll());
+    }
+
+    @GetMapping("/student/score/{studentId}")
+    public ResponseEntity<List<UsersExamScores>> getScoreOfStudent(@PathVariable int studentId){
+        return ResponseEntity.ok().body(usersExamScoresService.findByStudent(studentId));
+    }
+
+    @PostMapping("/student/score/save")
+    public ResponseEntity<UsersExamScores> saveScoreOfStudent(@RequestBody UsersExamScores usersExamScores){
+        Student student = usersService.findStudent(usersExamScores.getUsersExamScoresKey().getStudentId());
+        Exam exam = examService.findById(usersExamScores.getUsersExamScoresKey().getExamId());
+        usersExamScores.setStudent(student);
+        usersExamScores.setExam(exam);
+        return ResponseEntity.ok().body(usersExamScoresService.save(usersExamScores));
+    }
+
+    @GetMapping("/student/score/get/{studentId}/{examId}")
+    public ResponseEntity<Integer> getScoreOfStudentByExam(@PathVariable int studentId, @PathVariable int examId){
+        UsersExamScores examScores = usersExamScoresService.getScoreOfStudentByExam(studentId,examId);
+        return ResponseEntity.ok().body(examScores.getScores());
+    }
+
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -68,7 +69,8 @@ public class ScheduleRestAPI {
         String dayOfWeek=utils.getDayOfWeekOfSpecifyDate(selectedDate);
 
         List<String> list=classroomScheduleService.getScheduleOfTeacher(teacher.getId(),selectedDate,dayOfWeek);
-        List<ScheduleInfoHolder> scheduleInfoHolders=utils.convertStringToListScheduleHolder(list);
+        List<ScheduleInfoHolder> scheduleInfoHolders = new ArrayList<>();
+        scheduleInfoHolders.addAll(utils.convertStringToListScheduleHolder(list));
 //        for (ScheduleInfoHolder holder: scheduleInfoHolders
 //        ) {
 //            log.info(holder.toString());
