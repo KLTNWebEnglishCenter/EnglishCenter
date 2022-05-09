@@ -27,5 +27,4 @@ public class UserCourseRestAPI {
     public ResponseEntity<List<UsersCourseRequest>> getAll(){
         return ResponseEntity.ok().body(courseRequestService.findAll());
     }
-
 }

@@ -8,6 +8,7 @@ import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entityDTO.ClassroomDTO;
 import Web.EnglishCenter.entityDTO.NotificationDTO;
+import Web.EnglishCenter.entityDTO.UsersCourseRequestDTO;
 import Web.EnglishCenter.service.AuthenticationService;
 import Web.EnglishCenter.service.ClassroomService;
 import Web.EnglishCenter.service.UsersCourseRequestService;
@@ -15,6 +16,7 @@ import Web.EnglishCenter.service.UsersService;
 import Web.EnglishCenter.utils.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -84,7 +86,10 @@ public class StudentRestAPI {
         return ResponseEntity.ok().body((Student) usersService.save(student));
     }
 
+
+
     /**
+     * Duyệt học viên yêu cầu tham gia khóa học (đã hoàn tất học phí)
      * @author VQKHANH
      * @param courseId
      * @return
@@ -101,16 +106,21 @@ public class StudentRestAPI {
     }
 
     /**
+     *
      * @author VQKHANH
      * @param studentId
      * @param courseId
+     * @param status
      * @return
      */
-    @PutMapping("/student/requestcourse/status/{studentId}/{courseId}")
-    public ResponseEntity<UsersCourseRequest> updateStudentRequestCourseStatus(@PathVariable int studentId,@PathVariable int courseId){
+    @PostMapping("/student/requestcourse/status/")
+    public ResponseEntity<UsersCourseRequest> updateStudentRequestCourseStatus(@RequestParam int studentId,@RequestParam int courseId, @RequestParam String status){
        UsersCourseRequest usersCourseRequest=usersCourseRequestService.findByCourseIdAndStudentId(courseId,studentId);
-       if(usersCourseRequest!=null) usersCourseRequest.setStatus(UserRequestStatus.APPROVED);
-       return ResponseEntity.ok().body( usersCourseRequestService.save(usersCourseRequest));
+       if(usersCourseRequest!=null && !usersCourseRequest.getStatus().equalsIgnoreCase(UserRequestStatus.APPROVED)){
+           usersCourseRequest.setStatus(status);
+           return ResponseEntity.ok().body( usersCourseRequestService.save(usersCourseRequest));
+       }
+       return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(null);
     }
 
 
