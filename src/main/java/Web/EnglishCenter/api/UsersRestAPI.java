@@ -5,8 +5,10 @@ import Web.EnglishCenter.entity.user.Authentication;
 import Web.EnglishCenter.entity.user.CustomUserDetails;
 import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Users;
+import Web.EnglishCenter.entityDTO.UsersDTO;
 import Web.EnglishCenter.service.AuthenticationService;
 import Web.EnglishCenter.service.UsersService;
+import Web.EnglishCenter.utils.ConvertDTOHelper;
 import Web.EnglishCenter.utils.JwtHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,7 @@ public class UsersRestAPI {
     @Autowired
     private AuthenticationService authenticationService;
 
-
+    private ConvertDTOHelper convertDTOHelper=new ConvertDTOHelper();
     /**
      * get list of all user
      * @return list of user
@@ -87,12 +89,16 @@ public class UsersRestAPI {
 //    }
 
     @PostMapping("/user/fromToken")
-    public ResponseEntity<Users> getUserFromToken(HttpServletRequest request){
+    public ResponseEntity<UsersDTO> getUserFromToken(HttpServletRequest request){
         JwtHelper jwtHelper = new JwtHelper();
         String token = jwtHelper.getJwtFromRequest(request);
 //        log.info(token);
         String username = jwtHelper.getUsernameFromJWT(token);
-        return ResponseEntity.ok().body(usersService.findByUsername(username));
+
+        Users users=usersService.findByUsername(username);
+        UsersDTO usersDTO= convertDTOHelper.convertUsers(users);
+
+        return ResponseEntity.ok().body(usersDTO);
     }
 
     @PostMapping("/user/author")

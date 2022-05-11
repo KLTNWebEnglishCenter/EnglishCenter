@@ -34,7 +34,6 @@ public class JwtHelper {
 
     // Thời gian có hiệu lực của chuỗi jwt
     private final long JWT_EXPIRATION = 604800000L;
-
     //User for get user info from request
     @Autowired
     private UsersService usersService;

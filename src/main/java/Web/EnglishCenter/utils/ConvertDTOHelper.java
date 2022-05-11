@@ -9,6 +9,7 @@ import Web.EnglishCenter.entity.course.Course;
 import Web.EnglishCenter.entity.course.Level;
 import Web.EnglishCenter.entity.exam.Exam;
 import Web.EnglishCenter.entity.exam.Question;
+import Web.EnglishCenter.entity.user.Authentication;
 import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.Post;
 import Web.EnglishCenter.entity.user.Teacher;
@@ -240,6 +241,21 @@ public class ConvertDTOHelper {
     public Users trimUsers(Users users) {
         Users trim_users = new Users(users.getId(), users.getUsername(), users.getPassword(), users.getFullName(), users.getDob(), users.getGender(), users.getEmail(), users.getPhoneNumber(), users.isEnable());
         return trim_users;
+    }
+
+    /**
+     * @author VQKHANH
+     * @param users
+     * @return
+     */
+    public UsersDTO convertUsers(Users users) {
+        UsersDTO convert_users=null;
+        if(users!=null){
+            convert_users= new UsersDTO(users.getId(), users.getUsername(), users.getPassword(), users.getFullName(), users.getDob(), users.getGender(), users.getEmail(), users.getPhoneNumber(), users.isEnable());
+
+            convert_users.setRole(users.getAuthentication().getRole());
+        }
+        return convert_users;
     }
 
     public List<QuestionDTO> convertListQuestion(List<Question> questions){
