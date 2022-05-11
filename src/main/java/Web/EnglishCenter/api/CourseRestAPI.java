@@ -11,6 +11,8 @@ import Web.EnglishCenter.service.UsersCourseRequestService;
 import Web.EnglishCenter.utils.ConvertDTOHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -115,4 +117,14 @@ public class CourseRestAPI {
 //            }
 //        return ResponseEntity.ok().body(students);
 //    }
+
+    @GetMapping("/course/find/limit/{limit}")
+    public ResponseEntity<List<CourseDTO>> findCourseLimit(@PathVariable int limit){
+        List<Course> courseList = courseService.findLimit(limit);
+        List<CourseDTO> courseDTOS = new ArrayList<>();
+        if (courseList.size() > 0){
+            courseDTOS = convertDTOHelper.convertListCourse(courseService.findLimit(limit));
+        }
+        return ResponseEntity.ok().body(courseDTOS);
+    }
 }

@@ -216,8 +216,13 @@ public class StudentRestAPI {
 
     @GetMapping("/student/score/get/{studentId}/{examId}")
     public ResponseEntity<Integer> getScoreOfStudentByExam(@PathVariable int studentId, @PathVariable int examId){
-        UsersExamScores examScores = usersExamScoresService.getScoreOfStudentByExam(studentId,examId);
-        return ResponseEntity.ok().body(examScores.getScores());
+        try {
+            UsersExamScores examScores = usersExamScoresService.getScoreOfStudentByExam(studentId,examId);
+            return ResponseEntity.ok().body(examScores.getScores());
+        }catch (Exception e){
+            return ResponseEntity.ok().body(0);
+        }
+
     }
 
 
