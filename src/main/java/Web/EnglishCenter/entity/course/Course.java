@@ -69,4 +69,17 @@ public class Course implements Serializable {
 //        this.createDate=LocalDate.now();
         this.enable=true;
     }
+
+    public Course(int id, String name, String description, double price, LocalDate createDate, LocalDate modifiedDate, float discount, boolean enable, Level level, Category category) {
+        this.id=id;
+        this.name=name;
+        this.description=description;
+        this.price=price;
+        this.createDate=createDate;
+        this.modifiedDate=modifiedDate;
+        this.discount=discount;
+        this.enable=enable;
+        this.level=level;
+        this.category=category;
+    }
 }

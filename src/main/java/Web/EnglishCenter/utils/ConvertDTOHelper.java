@@ -1,6 +1,7 @@
 package Web.EnglishCenter.utils;
 
 import Web.EnglishCenter.entity.Document;
+import Web.EnglishCenter.entity.course.UsersCourseRequest;
 import Web.EnglishCenter.entity.schedule.Classroom;
 import Web.EnglishCenter.entity.Notification;
 import Web.EnglishCenter.entity.course.Category;
@@ -128,7 +129,10 @@ public class ConvertDTOHelper {
      * @author VQKHANH
      */
     public Teacher trimTeacher(Teacher teacher) {
-        Teacher trim_teacher = new Teacher(teacher.getId(), teacher.getUsername(), teacher.getPassword(), teacher.getFullName(), teacher.getDob(), teacher.getGender(), teacher.getEmail(), teacher.getPhoneNumber(), teacher.isEnable());
+        Teacher trim_teacher=null;
+        if(teacher!=null){
+            trim_teacher = new Teacher(teacher.getId(), teacher.getUsername(), teacher.getPassword(), teacher.getFullName(), teacher.getDob(), teacher.getGender(), teacher.getEmail(), teacher.getPhoneNumber(), teacher.isEnable());
+        }
         return trim_teacher;
     }
 
@@ -282,16 +286,63 @@ public class ConvertDTOHelper {
         return convert_classroom;
     }
 
+    /**
+     * @author VQKHANH
+     * @param document
+     * @return
+     */
     public Document trimDocument(Document document){
         Document trim_doc=new Document(document.getId(), document.getName(), document.getDescription(), document.getLink(), trimTeacher(document.getTeacher()));
         return trim_doc;
     }
 
+    /**
+     * @author VQKHANH
+     * @param documents
+     * @return
+     */
     public List<Document> trimListDocument(List<Document> documents){
         List<Document> trimList=new ArrayList<>();
         for (Document document:documents) {
             trimList.add(trimDocument(document));
         }
         return trimList;
+    }
+
+    public List<UsersCourseRequestDTO> convertListUsersCourseRequest(List<UsersCourseRequest> usersCourseRequests){
+        List<UsersCourseRequestDTO> usersCourseRequestDTOS=new ArrayList<>();
+        for (UsersCourseRequest usersCourseRequest:usersCourseRequests) {
+            usersCourseRequestDTOS.add(convertUsersCourseRequest(usersCourseRequest));
+        }
+        return usersCourseRequestDTOS;
+    }
+
+    /**
+     * @author VQKHANH
+     * @param usersCourseRequest
+     * @return
+     */
+    public UsersCourseRequestDTO convertUsersCourseRequest(UsersCourseRequest usersCourseRequest){
+
+        UsersCourseRequestDTO usersCourseRequestDTO=null;
+        if(usersCourseRequest!=null){
+            usersCourseRequestDTO=new UsersCourseRequestDTO(usersCourseRequest.getUserRequestCourseKey(),trimStudent(usersCourseRequest.getStudent()),convertCourse(usersCourseRequest.getCourse()), usersCourseRequest.getStatus());
+        }
+           return  usersCourseRequestDTO;
+    }
+
+    /**
+     * @author VQKHANH
+     * @param course
+     * @return
+     */
+    public Course trimCourse(Course course){
+        Course trimCourse=null;
+        if(course!=null){
+            trimCourse=new Course(course.getId(),course.getName(), course.getDescription(), course.getPrice(), course.getCreateDate(),course.getModifiedDate(),course.getDiscount(), course.isEnable(), trimLevel(course.getLevel()), trimCategory(course.getCategory()));
+            trimCourse.setClassrooms(null);
+            trimCourse.setUserRequestCourses(null);
+        }
+        return  trimCourse;
     }
 }
