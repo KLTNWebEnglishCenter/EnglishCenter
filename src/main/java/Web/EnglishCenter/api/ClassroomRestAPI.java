@@ -120,10 +120,14 @@ public class ClassroomRestAPI {
     }
 
     @GetMapping("/classroom/delete/{classroomId}")
-    public ResponseEntity<Classroom> deleteClassroom(@PathVariable("classroomId") int classroomId){
+    public ResponseEntity<String> deleteClassroom(@PathVariable("classroomId") int classroomId){
         Classroom classroom = classroomService.findById(classroomId);
-        classroomService.delete(classroom);
-        return ResponseEntity.ok().body(classroom);
+        try {
+            classroomService.delete(classroom);
+            return ResponseEntity.ok().body("DeleteAccess");
+        }catch (Exception e) {
+            return ResponseEntity.ok().body("DeleteFail");
+        }
     }
 
     /**
