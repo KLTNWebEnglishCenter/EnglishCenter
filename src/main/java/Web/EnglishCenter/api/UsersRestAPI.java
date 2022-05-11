@@ -1,18 +1,19 @@
 package Web.EnglishCenter.api;
 
+import Web.EnglishCenter.entity.Document;
 import Web.EnglishCenter.entity.course.UsersCourseRequest;
-import Web.EnglishCenter.entity.user.Authentication;
-import Web.EnglishCenter.entity.user.CustomUserDetails;
-import Web.EnglishCenter.entity.user.Student;
-import Web.EnglishCenter.entity.user.Users;
+import Web.EnglishCenter.entity.user.*;
 import Web.EnglishCenter.service.AuthenticationService;
 import Web.EnglishCenter.service.UsersService;
+import Web.EnglishCenter.service.impl.AmazonClient;
 import Web.EnglishCenter.utils.JwtHelper;
+import Web.EnglishCenter.utils.UsersType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -29,7 +30,8 @@ public class UsersRestAPI {
     @Autowired
     private AuthenticationService authenticationService;
 
-
+    @Autowired
+    private AmazonClient amazonClient;
     /**
      * get list of all user
      * @return list of user
@@ -75,6 +77,7 @@ public class UsersRestAPI {
         users1.setDob(users.getDob());
         users1.setGender(users.getGender());
         users1.setPhoneNumber(users.getPhoneNumber());
+        users1.setImg(users.getImg());
         return ResponseEntity.ok().body(usersService.update(users1));
     }
 
@@ -133,6 +136,12 @@ public class UsersRestAPI {
             return ResponseEntity.ok().body("true");
         }
         return ResponseEntity.ok().body("false");
+    }
+
+    @PostMapping("/user/profile/uploadImg")
+    public ResponseEntity<String> uploadFileProfile(@RequestPart(value = "file") MultipartFile file) {
+        String link=amazonClient.uploadFile(file);
+        return ResponseEntity.ok().body(link);
     }
 
 }

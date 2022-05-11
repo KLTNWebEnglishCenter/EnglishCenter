@@ -5,6 +5,9 @@ import Web.EnglishCenter.repo.CourseRepo;
 import Web.EnglishCenter.service.CourseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -84,5 +87,12 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> findByCategory(int categoryId) {
         return courseRepo.findByCategory(categoryId);
+    }
+
+    @Override
+    public List<Course> findLimit(int limit) {
+        Pageable page = PageRequest.of(0,limit);
+        Page<Course> courses = courseRepo.findAll(page);
+        return courses.getContent();
     }
 }

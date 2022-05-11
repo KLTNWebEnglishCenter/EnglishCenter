@@ -42,6 +42,8 @@ public class Users implements Serializable {
 	@Column(columnDefinition = "true")
 	private boolean enable;
 
+	private String img;
+
 
 	@JsonBackReference(value = "users_authentication")
 //	@JsonBackReference

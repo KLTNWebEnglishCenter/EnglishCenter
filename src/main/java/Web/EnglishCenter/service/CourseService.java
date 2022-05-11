@@ -14,4 +14,5 @@ public interface CourseService {
     public List<Course> findByName(String name);
     public List<Course> findByIdOrCourseName(String idOrCourseName);
     public List<Course> findByCategory(int categoryId);
+    public List<Course> findLimit(int limit);
 }
