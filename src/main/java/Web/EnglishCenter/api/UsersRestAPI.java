@@ -70,6 +70,7 @@ public class UsersRestAPI {
         student.setEmail(users.getEmail());
         student.setFullName(users.getFullName());
         student.setAuthentication(authentication);
+        student.setEnable(true);
         return ResponseEntity.ok().body(usersService.save(student));
     }
 
