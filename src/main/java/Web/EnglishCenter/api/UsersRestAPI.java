@@ -140,17 +140,22 @@ public class UsersRestAPI {
 
     @PostMapping("/user/change/password")
     public ResponseEntity<String> updatePassword(@RequestParam String id,@RequestParam String oldPass,@RequestParam String newPass){
-        Users users = usersService.updatePassword(Integer.parseInt(id),oldPass,newPass);
-        if (users != null){
-            return ResponseEntity.ok().body("true");
-        }
-        return ResponseEntity.ok().body("false");
+        boolean rs = usersService.updatePassword(Integer.parseInt(id),oldPass,newPass);
+        return ResponseEntity.ok().body(String.valueOf(rs));
     }
 
     @PostMapping("/user/profile/uploadImg")
     public ResponseEntity<String> uploadFileProfile(@RequestPart(value = "file") MultipartFile file) {
         String link=amazonClient.uploadFile(file);
         return ResponseEntity.ok().body(link);
+    }
+
+    @PostMapping("/user/update/password")
+    public ResponseEntity<Users> changePass(@RequestBody Users users) {
+        Users users1 = usersService.findById(users.getId());
+        users1.setPassword(users.getPassword());
+        log.info(users1.toString());
+        return ResponseEntity.ok().body(usersService.save(users1));
     }
 
 }

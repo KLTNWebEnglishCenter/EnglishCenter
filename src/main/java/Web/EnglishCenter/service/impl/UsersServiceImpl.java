@@ -118,14 +118,10 @@ public class UsersServiceImpl implements UsersService,UserDetailsService {
     }
 
     @Override
-    public Users updatePassword(int id,String oldPass, String newPass) {
+    public boolean updatePassword(int id,String oldPass, String newPass) {
         Users users = usersRepo.getById(id);
         boolean rs = passwordEncoder.matches(oldPass,users.getPassword());
-        if (rs){
-            users.setPassword(passwordEncoder.encode(newPass));
-            return usersRepo.save(users);
-        }
-        return null;
+        return rs;
     }
 
     //==========================================================END===================================================================
