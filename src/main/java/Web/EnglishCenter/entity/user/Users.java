@@ -39,7 +39,7 @@ public class Users implements Serializable {
 	private String email;
 	@Column(columnDefinition = "nvarchar(10)",unique = true)
 	private String phoneNumber;
-	@Column(columnDefinition = "true")
+	@Column
 	private boolean enable;
 
 	private String img;
