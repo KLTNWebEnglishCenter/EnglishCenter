@@ -18,6 +18,8 @@ import Web.EnglishCenter.entityDTO.*;
 
 import javax.print.Doc;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ConvertDTOHelper {
@@ -294,6 +296,12 @@ public class ConvertDTOHelper {
     public ClassroomDTO convertClassroomContainNotificationsTeacherAndCourse(Classroom classroom) {
         ClassroomDTO convert_classroom = new ClassroomDTO(classroom.getId(), classroom.getStartDate(), classroom.getEndDate(), classroom.getStatus(), classroom.getClassname(), classroom.getMaxMember(), classroom.getCreateDate(), classroom.getModifiedDate());
         convert_classroom.setTeacher(trimTeacher(classroom.getTeacher()));
+        Collections.sort(classroom.getNotifications(), new Comparator<Notification>() {
+            @Override
+            public int compare(Notification o1, Notification o2) {
+                return o1.getModifiedDate().compareTo(o2.getModifiedDate())*-1;
+            }
+        });
         convert_classroom.setNotifications(classroom.getNotifications());
         convert_classroom.setStudents(null);
         Course course=classroom.getCourse();

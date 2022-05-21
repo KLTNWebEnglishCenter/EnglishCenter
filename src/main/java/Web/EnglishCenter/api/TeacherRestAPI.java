@@ -1,9 +1,12 @@
 package Web.EnglishCenter.api;
 
+import Web.EnglishCenter.api.handel.InUseException;
 import Web.EnglishCenter.entity.schedule.Classroom;
 import Web.EnglishCenter.entity.course.Course;
 import Web.EnglishCenter.entity.schedule.Schedule;
 import Web.EnglishCenter.entity.user.Authentication;
+import Web.EnglishCenter.entity.user.Employee;
+import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entityDTO.ClassroomDTO;
 import Web.EnglishCenter.entityDTO.ScheduleInfoHolder;
@@ -76,7 +79,51 @@ public class TeacherRestAPI {
             teacher.setAuthentication(authentication);
 
         }
+
+        Teacher teacherInDB= (Teacher) usersService.findByUsername(teacher.getUsername());
+        if(teacherInDB!=null)
+            throw new InUseException("Tên đăng nhập đã bị sử dụng!");
+        teacherInDB= (Teacher) usersService.findByEmail(teacher.getEmail());
+        if(teacherInDB!=null)
+            throw new InUseException("Email đã bị sử dụng!");
+        teacherInDB= (Teacher) usersService.findByPhoneNumber(teacher.getPhoneNumber());
+        if(teacherInDB!=null)
+            throw new InUseException("Số điện thoại đã bị sử dụng!");
+
         return ResponseEntity.ok().body((Teacher)usersService.save(teacher));
+    }
+
+    /**
+     *
+     * @author VQKHANH
+     * @param teacher
+     * @return data after saved to db
+     */
+    @PostMapping("/teacher/update")
+    public ResponseEntity<Teacher> updateTeacher(@RequestBody Teacher teacher){
+        if(teacher.getId()==0||teacher.getAuthentication()==null){
+            Authentication authentication= authenticationService.findByRoleName(RoleType.TEACHER);
+            if (authentication == null) {
+                log.info("Don't have role " + RoleType.TEACHER + " in DB");
+            }
+            teacher.setAuthentication(authentication);
+
+        }
+
+        Teacher teacherInDB= (Teacher) usersService.findByUsername(teacher.getUsername());
+        if(teacherInDB!=null)
+            throw new InUseException("Tên đăng nhập đã bị sử dụng!");
+        teacherInDB= (Teacher) usersService.findByEmail(teacher.getEmail());
+        if(teacherInDB!=null)
+            throw new InUseException("Email đã bị sử dụng!");
+        teacherInDB= (Teacher) usersService.findByPhoneNumber(teacher.getPhoneNumber());
+        if(teacherInDB!=null)
+            throw new InUseException("Số điện thoại đã bị sử dụng!");
+
+        Teacher oldTeacher=usersService.findTeacher(teacher.getId());
+        teacher.setPassword(oldTeacher.getPassword());
+
+        return ResponseEntity.ok().body((Teacher)usersService.update(teacher));
     }
 
     @Autowired

@@ -37,6 +37,16 @@ public class UsersServiceImpl implements UsersService,UserDetailsService {
         return usersRepo.findByUsername(username);
     }
 
+    @Override
+    public Users findByEmail(String email) {
+        return usersRepo.findByEmail(email);
+    }
+
+    @Override
+    public Users findByPhoneNumber(String phoneNumber) {
+        return usersRepo.findByPhoneNumber(phoneNumber);
+    }
+
     /**
      * For JWT
      * @author VQKHANH

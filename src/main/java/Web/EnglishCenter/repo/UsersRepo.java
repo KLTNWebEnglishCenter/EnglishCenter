@@ -14,6 +14,12 @@ public interface UsersRepo extends JpaRepository<Users,Integer> {
     @Query(value ="select * from users where username=:username",nativeQuery = true)
     Users findByUsername(@Param("username") String username);
 
+    @Query(value ="select * from users where email=:email",nativeQuery = true)
+    Users findByEmail(String email);
+
+    @Query(value ="select * from users where phone_number=:phoneNumber",nativeQuery = true)
+    Users findByPhoneNumber(String phoneNumber);
+
     @Query(value = "select * from users where dtype = 'Teacher' and id = (select teacher_id from classroom where id =:classroomId)", nativeQuery = true)
     Teacher findTeacherByClassroomId(@Param("classroomId") int classroomId);
 

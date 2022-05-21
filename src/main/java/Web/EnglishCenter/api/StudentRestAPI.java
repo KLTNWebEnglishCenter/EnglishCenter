@@ -1,5 +1,6 @@
 package Web.EnglishCenter.api;
 
+import Web.EnglishCenter.api.handel.InUseException;
 import Web.EnglishCenter.entity.Notification;
 import Web.EnglishCenter.entity.course.Course;
 import Web.EnglishCenter.entity.course.UsersCourseRequest;
@@ -7,6 +8,7 @@ import Web.EnglishCenter.entity.exam.Exam;
 import Web.EnglishCenter.entity.exam.UsersExamScores;
 import Web.EnglishCenter.entity.schedule.Classroom;
 import Web.EnglishCenter.entity.user.Authentication;
+import Web.EnglishCenter.entity.user.Employee;
 import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Teacher;
 import Web.EnglishCenter.entityDTO.ClassroomDTO;
@@ -52,6 +54,9 @@ public class StudentRestAPI {
     private ExamService examService;
 
     @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
     private JwtHelper jwtHelper;
 
     private ConvertDTOHelper convertDTOHelper=new ConvertDTOHelper();
@@ -93,10 +98,51 @@ public class StudentRestAPI {
             }
             student.setAuthentication(authentication);
         }
+
+        Student studentInDB= (Student) usersService.findByUsername(student.getUsername());
+        if(studentInDB!=null)
+            throw new InUseException("Tên đăng nhập đã bị sử dụng!");
+        studentInDB= (Student) usersService.findByEmail(student.getEmail());
+        if(studentInDB!=null)
+            throw new InUseException("Email đã bị sử dụng!");
+        studentInDB= (Student) usersService.findByPhoneNumber(student.getPhoneNumber());
+        if(studentInDB!=null)
+            throw new InUseException("Số điện thoại đã bị sử dụng!");
+
         return ResponseEntity.ok().body((Student) usersService.save(student));
     }
 
+    /**
+     * @author VQKHANH
+     * @param student
+     * @return data after saved to db
+     */
+    @PostMapping("/student/update")
+    public ResponseEntity<Student> updateStudent(@RequestBody Student student){
+//        log.info(student.toString());
+        if(student.getId()==0||student.getAuthentication()==null){
+            Authentication authentication= authenticationService.findByRoleName(RoleType.STUDENT);
+            if (authentication == null) {
+                log.info("Don't have role " + RoleType.STUDENT + " in DB");
+            }
+            student.setAuthentication(authentication);
+        }
 
+        Student studentInDB= (Student) usersService.findByUsername(student.getUsername());
+        if(studentInDB!=null)
+            throw new InUseException("Tên đăng nhập đã bị sử dụng!");
+        studentInDB= (Student) usersService.findByEmail(student.getEmail());
+        if(studentInDB!=null)
+            throw new InUseException("Email đã bị sử dụng!");
+        studentInDB= (Student) usersService.findByPhoneNumber(student.getPhoneNumber());
+        if(studentInDB!=null)
+            throw new InUseException("Số điện thoại đã bị sử dụng!");
+
+        Student oldStudent=usersService.findStudent(student.getId());
+        student.setPassword(oldStudent.getPassword());
+
+        return ResponseEntity.ok().body((Student) usersService.update(student));
+    }
 
     /**
      * Duyệt học viên yêu cầu tham gia khóa học (đã hoàn tất học phí)
@@ -184,10 +230,12 @@ public class StudentRestAPI {
         //get student info from access token
         Student student= (Student) jwtHelper.getUserFromRequest(request, UsersType.STUDENT);
 
-        List<Notification> notifications=new ArrayList<>();
-        for (Classroom classroom: student.getClassrooms()) {
-            notifications.addAll(classroom.getNotifications());
-        }
+//        List<Notification> notifications=new ArrayList<>();
+//        for (Classroom classroom: student.getClassrooms()) {
+//            notifications.addAll(classroom.getNotifications());
+//        }
+        List<Notification> notifications=notificationService.findByStudentId(student.getId());
+
         List<NotificationDTO> notificationDTOS=new ArrayList<>();
         if(notifications.size()>0){
             notificationDTOS=convertDTOHelper.convertListNotification(notifications);

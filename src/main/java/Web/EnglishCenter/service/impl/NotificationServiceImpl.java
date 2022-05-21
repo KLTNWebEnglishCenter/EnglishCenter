@@ -91,6 +91,19 @@ public class NotificationServiceImpl implements NotificationService {
 //==========================================================END===================================================================
 
 
+//==========================================================For Student view notification===================================================================
+
+    /**
+     * @author VQKHANH
+     * @param studentId
+     * @return
+     */
+    @Override
+    public List<Notification> findByStudentId(int studentId){return notificationRepo.findByStudentId(studentId);}
+
+//==========================================================END===================================================================
+
+
 //==========================================================For search feature===================================================================
 
 

@@ -8,6 +8,8 @@ import java.util.List;
 public interface UsersService {
 
     public Users findByUsername(String username);
+    public Users findByEmail(String email);
+    public Users findByPhoneNumber(String phoneNumber);
     public Teacher findTeacherByClassroomId(int classroomId);
 
 //==========================================================Default===================================================================
