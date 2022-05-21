@@ -4,10 +4,7 @@ import Web.EnglishCenter.api.handel.InUseException;
 import Web.EnglishCenter.entity.schedule.Classroom;
 import Web.EnglishCenter.entity.course.Course;
 import Web.EnglishCenter.entity.schedule.Schedule;
-import Web.EnglishCenter.entity.user.Authentication;
-import Web.EnglishCenter.entity.user.Employee;
-import Web.EnglishCenter.entity.user.Student;
-import Web.EnglishCenter.entity.user.Teacher;
+import Web.EnglishCenter.entity.user.*;
 import Web.EnglishCenter.entityDTO.ClassroomDTO;
 import Web.EnglishCenter.entityDTO.ScheduleInfoHolder;
 import Web.EnglishCenter.service.*;
@@ -110,14 +107,14 @@ public class TeacherRestAPI {
 
         }
 
-        Teacher teacherInDB= (Teacher) usersService.findByUsername(teacher.getUsername());
-        if(teacherInDB!=null&&teacherInDB.getId()!= teacher.getId())
+        Users usersInDB= usersService.findByUsername(teacher.getUsername());
+        if(usersInDB!=null&&usersInDB.getId()!= teacher.getId())
             throw new InUseException("Tên đăng nhập đã bị sử dụng!");
-        teacherInDB= (Teacher) usersService.findByEmail(teacher.getEmail());
-        if(teacherInDB!=null&&teacherInDB.getId()!= teacher.getId())
+        usersInDB= usersService.findByEmail(teacher.getEmail());
+        if(usersInDB!=null&&usersInDB.getId()!= teacher.getId())
             throw new InUseException("Email đã bị sử dụng!");
-        teacherInDB= (Teacher) usersService.findByPhoneNumber(teacher.getPhoneNumber());
-        if(teacherInDB!=null&&teacherInDB.getId()!= teacher.getId())
+        usersInDB= usersService.findByPhoneNumber(teacher.getPhoneNumber());
+        if(usersInDB!=null&&usersInDB.getId()!= teacher.getId())
             throw new InUseException("Số điện thoại đã bị sử dụng!");
 
         Teacher oldTeacher=usersService.findTeacher(teacher.getId());

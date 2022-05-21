@@ -4,6 +4,7 @@ import Web.EnglishCenter.api.handel.InUseException;
 import Web.EnglishCenter.entity.user.Authentication;
 import Web.EnglishCenter.entity.user.Employee;
 import Web.EnglishCenter.entity.user.Student;
+import Web.EnglishCenter.entity.user.Users;
 import Web.EnglishCenter.service.AuthenticationService;
 import Web.EnglishCenter.service.UsersService;
 import Web.EnglishCenter.utils.RoleType;
@@ -90,14 +91,14 @@ public class EmployeeRestAPI {
             employee.setAuthentication(authentication);
         }
 
-        Employee employeeInDB= (Employee) usersService.findByUsername(employee.getUsername());
-        if(employeeInDB!=null&&employeeInDB.getId()!= employee.getId())
+        Users usersInDB=  usersService.findByUsername(employee.getUsername());
+        if(usersInDB!=null&&usersInDB.getId()!= employee.getId())
             throw new InUseException("Tên đăng nhập đã bị sử dụng!");
-        employeeInDB= (Employee) usersService.findByEmail(employee.getEmail());
-        if(employeeInDB!=null&&employeeInDB.getId()!= employee.getId())
+        usersInDB= usersService.findByEmail(employee.getEmail());
+        if(usersInDB!=null&&usersInDB.getId()!= employee.getId())
             throw new InUseException("Email đã bị sử dụng!");
-        employeeInDB= (Employee) usersService.findByPhoneNumber(employee.getPhoneNumber());
-        if(employeeInDB!=null&&employeeInDB.getId()!= employee.getId())
+        usersInDB= usersService.findByPhoneNumber(employee.getPhoneNumber());
+        if(usersInDB!=null&&usersInDB.getId()!= employee.getId())
             throw new InUseException("Số điện thoại đã bị sử dụng!");
 
         Employee oldEmployee=usersService.findEmployee(employee.getId());
