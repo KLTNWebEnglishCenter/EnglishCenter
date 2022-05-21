@@ -129,13 +129,13 @@ public class StudentRestAPI {
         }
 
         Student studentInDB= (Student) usersService.findByUsername(student.getUsername());
-        if(studentInDB!=null)
+        if(studentInDB!=null&&studentInDB.getId()!= student.getId())
             throw new InUseException("Tên đăng nhập đã bị sử dụng!");
         studentInDB= (Student) usersService.findByEmail(student.getEmail());
-        if(studentInDB!=null)
+        if(studentInDB!=null&&studentInDB.getId()!= student.getId())
             throw new InUseException("Email đã bị sử dụng!");
         studentInDB= (Student) usersService.findByPhoneNumber(student.getPhoneNumber());
-        if(studentInDB!=null)
+        if(studentInDB!=null&&studentInDB.getId()!= student.getId())
             throw new InUseException("Số điện thoại đã bị sử dụng!");
 
         Student oldStudent=usersService.findStudent(student.getId());

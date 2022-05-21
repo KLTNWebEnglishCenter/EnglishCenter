@@ -111,13 +111,13 @@ public class TeacherRestAPI {
         }
 
         Teacher teacherInDB= (Teacher) usersService.findByUsername(teacher.getUsername());
-        if(teacherInDB!=null)
+        if(teacherInDB!=null&&teacherInDB.getId()!= teacher.getId())
             throw new InUseException("Tên đăng nhập đã bị sử dụng!");
         teacherInDB= (Teacher) usersService.findByEmail(teacher.getEmail());
-        if(teacherInDB!=null)
+        if(teacherInDB!=null&&teacherInDB.getId()!= teacher.getId())
             throw new InUseException("Email đã bị sử dụng!");
         teacherInDB= (Teacher) usersService.findByPhoneNumber(teacher.getPhoneNumber());
-        if(teacherInDB!=null)
+        if(teacherInDB!=null&&teacherInDB.getId()!= teacher.getId())
             throw new InUseException("Số điện thoại đã bị sử dụng!");
 
         Teacher oldTeacher=usersService.findTeacher(teacher.getId());
