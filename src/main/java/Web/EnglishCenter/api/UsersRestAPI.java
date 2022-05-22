@@ -1,6 +1,7 @@
 package Web.EnglishCenter.api;
 
 
+import Web.EnglishCenter.api.handel.InUseException;
 import Web.EnglishCenter.entity.user.Authentication;
 import Web.EnglishCenter.entity.user.Student;
 import Web.EnglishCenter.entity.user.Users;
@@ -10,6 +11,7 @@ import Web.EnglishCenter.service.UsersService;
 import Web.EnglishCenter.utils.ConvertDTOHelper;
 import Web.EnglishCenter.service.impl.AmazonClient;
 import Web.EnglishCenter.utils.JwtHelper;
+import Web.EnglishCenter.utils.RoleType;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -63,6 +65,7 @@ public class UsersRestAPI {
      */
     @PostMapping("/register")
     public ResponseEntity<Users> save(@RequestBody Users users){
+
         Authentication authentication= authenticationService.findById(1);
         Student student = new Student();
         student.setUsername(users.getUsername());
@@ -74,8 +77,32 @@ public class UsersRestAPI {
         return ResponseEntity.ok().body(usersService.save(student));
     }
 
+    @PostMapping("/user/test")
+    public ResponseEntity<String> testBeforeSave(@RequestBody Users users){
+        Users usersInDB=  usersService.findByUsername(users.getUsername());
+        if(usersInDB!=null&&usersInDB.getId()!= users.getId())
+            throw new InUseException("Tên đăng nhập đã bị sử dụng!");
+        usersInDB=  usersService.findByEmail(users.getEmail());
+        if(usersInDB!=null&&usersInDB.getId()!= users.getId())
+            throw new InUseException("Email đã bị sử dụng!");
+        usersInDB= usersService.findByPhoneNumber(users.getPhoneNumber());
+        if(usersInDB!=null&&usersInDB.getId()!= users.getId())
+            throw new InUseException("Số điện thoại đã bị sử dụng!");
+        return ResponseEntity.ok().body("Oke");
+    }
+
     @PostMapping("/user/update")
     public ResponseEntity<Users> update(@RequestBody Users users){
+        Users usersInDB=  usersService.findByUsername(users.getUsername());
+        if(usersInDB!=null&&usersInDB.getId()!= users.getId())
+            throw new InUseException("Tên đăng nhập đã bị sử dụng!");
+        usersInDB=  usersService.findByEmail(users.getEmail());
+        if(usersInDB!=null&&usersInDB.getId()!= users.getId())
+            throw new InUseException("Email đã bị sử dụng!");
+        usersInDB= usersService.findByPhoneNumber(users.getPhoneNumber());
+        if(usersInDB!=null&&usersInDB.getId()!= users.getId())
+            throw new InUseException("Số điện thoại đã bị sử dụng!");
+
         Users users1 = usersService.findById(users.getId());
         users1.setFullName(users.getFullName());
         users1.setEmail(users.getEmail());
