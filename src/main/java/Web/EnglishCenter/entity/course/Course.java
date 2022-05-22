@@ -24,7 +24,7 @@ public class Course implements Serializable {
 
 //    @NotNull
 //    @NonNull
-    @Column(columnDefinition = "nvarchar(255)",nullable = false,unique = true)
+    @Column(columnDefinition = "nvarchar(255)",nullable = false)
     private String name;
 
     @Column(columnDefinition = "nvarchar(255)")
