@@ -153,7 +153,7 @@ public class StudentRestAPI {
         List<Student> students=new ArrayList<>();
         if(usersCourseRequests.size()>0)
             for (UsersCourseRequest usersCourseRequest: usersCourseRequests) {
-                students.add(usersCourseRequest.getStudent());
+                students.add(convertDTOHelper.trimStudent(usersCourseRequest.getStudent()));
             }
         return ResponseEntity.ok().body(students);
     }
