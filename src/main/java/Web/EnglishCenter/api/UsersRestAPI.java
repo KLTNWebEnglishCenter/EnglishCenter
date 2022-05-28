@@ -65,8 +65,7 @@ public class UsersRestAPI {
      */
     @PostMapping("/register")
     public ResponseEntity<Users> save(@RequestBody Users users){
-
-        Authentication authentication= authenticationService.findById(1);
+        Authentication authentication= authenticationService.findByRoleName(RoleType.STUDENT);
         Student student = new Student();
         student.setUsername(users.getUsername());
         student.setPassword(users.getPassword());
