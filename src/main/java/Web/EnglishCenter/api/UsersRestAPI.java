@@ -162,7 +162,7 @@ public class UsersRestAPI {
             users=usersService.searchUser(idOrUsername,fullName,dtype);
         }
         return ResponseEntity.ok().body(users);
-    };
+    }
 
     @PostMapping("/user/change/password")
     public ResponseEntity<String> updatePassword(@RequestParam String id,@RequestParam String oldPass,@RequestParam String newPass){
